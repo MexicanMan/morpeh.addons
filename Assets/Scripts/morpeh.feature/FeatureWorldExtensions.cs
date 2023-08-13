@@ -1,20 +1,45 @@
 ﻿using JetBrains.Annotations;
 using Scellecs.Morpeh;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 
 namespace Assets.Scripts.morpeh.feature
 {
     public static class FeatureWorldExtensions
     {
         [PublicAPI]
-        public static void RegisterFeature<TFeature>(this World world, TFeature feature, bool enabled = true)
-                where TFeature : BaseFeature<ISystem>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static World AddFeature(this World world, int order, BaseFeature feature, bool enabled = true)
         {
+            feature.RegisterFeature(world, order, enabled);
+            FeatureRegistry.RegisterFeature(world, feature);
 
+            return world;
+        }
+
+        [PublicAPI]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static World RemoveFeature(this World world, BaseFeature feature)
+        {
+            FeatureRegistry.RemoveFeature(world, feature);
+            feature.Dispose();
+
+            return world;
+        }
+
+        [PublicAPI]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void GetFeature<TFeature>(this World world, out TFeature feature)
+                where TFeature : BaseFeature
+        {
+            feature = world.GetFeature<TFeature>();
+        }
+
+        [PublicAPI]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static TFeature GetFeature<TFeature>(this World world)
+                where TFeature : BaseFeature
+        {
+            return FeatureRegistry.GetFeature<TFeature>(world);
         }
     }
 }

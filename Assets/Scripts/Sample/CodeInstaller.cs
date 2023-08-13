@@ -1,35 +1,30 @@
 ﻿using Scellecs.Morpeh;
+using Assets.Scripts.morpeh.feature;
+using Assets.Scripts.Sample.PlayerInput;
 
 namespace Assets.Scripts.Sample
 {
     public class CodeInstaller : BaseInstaller
     {
         private World _defaultWorld;
-        private SystemsGroup[] _systemsGroups;
+        private UpdateFeature[] _updateFeatures;
+        private FixedUpdateFeature[] _fixedUpdateFeatures;
+        private LateUpdateFeature[] _lateUpdateFeatures;
 
         protected void Awake()
         {
             InitializeShared();
 
-            _systemsGroups = FillSystemsGroups();
+            InitializeFeatures();
         }
 
-        protected override void OnEnable() => EnableGroups();
+        protected override void OnEnable() => EnableFeatures();
 
-        protected override void OnDisable() => DisableGroups();
+        protected override void OnDisable() => DisableFeatures();
 
         protected void OnDestroy()
         {
             _defaultWorld.Dispose();
-        }
-
-        private SystemsGroup[] FillSystemsGroups()
-        {
-            return new[]
-            {
-                // Add your system groups
-                _defaultWorld.CreateSystemsGroup()
-            };
         }
 
         private void InitializeShared()
@@ -39,16 +34,38 @@ namespace Assets.Scripts.Sample
             // Add here some services init
         }
 
-        private void EnableGroups()
+        private void InitializeFeatures()
         {
-            for (int i = 0; i < _systemsGroups.Length; i++)
-                _defaultWorld.AddSystemsGroup(i, _systemsGroups[i]);
+            _updateFeatures = new UpdateFeature[]
+            {
+                new PlayerInputFeature(),
+            };
+
+            _fixedUpdateFeatures = new FixedUpdateFeature[] { };
+
+            _lateUpdateFeatures = new LateUpdateFeature[] { };
         }
 
-        private void DisableGroups()
+        private void EnableFeatures()
         {
-            for (int i = 0; i < _systemsGroups.Length; i++)
-                _defaultWorld.RemoveSystemsGroup(_systemsGroups[i]);
+            int order = 0;
+
+            for (int i = 0; i < _updateFeatures.Length; i++, order++)
+                _defaultWorld.AddFeature(order, _updateFeatures[i]);
+            for (int i = 0; i < _fixedUpdateFeatures.Length; i++, order++)
+                _defaultWorld.AddFeature(order, _fixedUpdateFeatures[i]);
+            for (int i = 0; i < _lateUpdateFeatures.Length; i++, order++)
+                _defaultWorld.AddFeature(order, _lateUpdateFeatures[i]);
+        }
+
+        private void DisableFeatures()
+        {
+            for (int i = 0; i < _updateFeatures.Length; i++)
+                _defaultWorld.RemoveFeature(_updateFeatures[i]);
+            for (int i = 0; i < _fixedUpdateFeatures.Length; i++)
+                _defaultWorld.RemoveFeature(_fixedUpdateFeatures[i]);
+            for (int i = 0; i < _lateUpdateFeatures.Length; i++)
+                _defaultWorld.RemoveFeature(_lateUpdateFeatures[i]);
         }
 
     }
