@@ -1,6 +1,7 @@
 ﻿using Scellecs.Morpeh;
 using Scellecs.Morpeh.Collections;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace Assets.Scripts.morpeh.feature
 {
@@ -9,6 +10,7 @@ namespace Assets.Scripts.morpeh.feature
         private static readonly IntHashMap<FeatureRegistry> WorldFeatureRegistry = new IntHashMap<FeatureRegistry>();
 
         private readonly World _world;
+        private FastList<BaseFeature> _registeredFeatures;
 
         public static FeatureRegistry GetFor(World world)
         {
@@ -20,32 +22,89 @@ namespace Assets.Scripts.morpeh.feature
             return registry;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void RegisterFeature(World world, BaseFeature feature)
+        {
+            GetFor(world).RegisterFeature(feature);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void RemoveFeature(World world, BaseFeature feature)
+        {
+            GetFor(world).RemoveFeature(feature);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static TFeature GetFeature<TFeature>(World world)
+            where TFeature : BaseFeature
+        {
+            return GetFor(world).GetFeature<TFeature>();
+        }
+
         private FeatureRegistry(World world)
         {
             _world = world;
+
+            _registeredFeatures = new FastList<BaseFeature>();
         }
 
-        private void RegisterFeature<TFeature>(TFeature feature) where TFeature : BaseFeature<ISystem> 
+        private void RegisterFeature(BaseFeature feature)
         {
-            for (var i = 0; i < registeredFilters; i++)
+            foreach (var registeredFeature in _registeredFeatures)
             {
-                if (oneFrameFilters[i].GetInnerType() == typeof(T))
+                if (registeredFeature.GetType() == feature.GetType())
                 {
+                #if MORPEH_DEBUG
+                    MLogger.LogError($"Only one instance of the \"{feature.GetType()}\" feature could be registered!");
+                #endif
+
                     return;
                 }
             }
 
-            if (registeredFilters >= oneFrameFilters.Length)
+            _registeredFeatures.Add(feature);
+        }
+
+        private void RemoveFeature(BaseFeature feature)
+        {
+            int featureIndex = _registeredFeatures.IndexOf(feature);
+            if (featureIndex == -1)
             {
-                Array.Resize(ref oneFrameFilters, oneFrameFilters.Length << 1);
+            #if MORPEH_DEBUG
+                MLogger.LogWarning($"There wasn't registered any features with the type of \"{feature.GetType()}\"!");
+            #endif
+
+                return;
             }
 
-            oneFrameFilters[registeredFilters++] = new OneFrameFilter<T>(world);
+            _registeredFeatures.RemoveAt(featureIndex);
+        }
+
+        private TFeature GetFeature<TFeature>() where TFeature : BaseFeature
+        {
+            foreach (var registeredFeature in _registeredFeatures)
+                if (registeredFeature.GetType() == typeof(TFeature))
+                    return (TFeature) registeredFeature;
+
+        #if MORPEH_DEBUG
+            MLogger.LogWarning($"There wasn't registered any features with the type of \"{typeof(TFeature)}\"!");
+        #endif
+
+            return null;
+        }
+
+        public void ClearRegisteredFeatures()
+        {
+            foreach (var registeredFeature in _registeredFeatures)
+                registeredFeature.Dispose();
+
+            _registeredFeatures.Clear();
         }
 
         public void Dispose()
         {
-            
+            ClearRegisteredFeatures();
+            WorldFeatureRegistry.Remove(_world.identifier, out _);
         }
     }
 }
