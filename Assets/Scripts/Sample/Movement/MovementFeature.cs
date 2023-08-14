@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.morpeh.feature;
+﻿using Scellecs.Morpeh.Addons.Feature;
 
 namespace Assets.Scripts.Sample.PlayerInput
 {

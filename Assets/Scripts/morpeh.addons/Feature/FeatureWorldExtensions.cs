@@ -2,7 +2,7 @@
 using Scellecs.Morpeh;
 using System.Runtime.CompilerServices;
 
-namespace Assets.Scripts.morpeh.feature
+namespace Scellecs.Morpeh.Addons.Feature
 {
     public static class FeatureWorldExtensions
     {
