@@ -3,7 +3,7 @@ using Scellecs.Morpeh.Collections;
 using System;
 using System.Runtime.CompilerServices;
 
-namespace Assets.Scripts.morpeh.feature
+namespace Scellecs.Morpeh.Addons.Feature
 {
     internal sealed class FeatureRegistry : IDisposable
     {
@@ -12,14 +12,11 @@ namespace Assets.Scripts.morpeh.feature
         private readonly World _world;
         private FastList<BaseFeature> _registeredFeatures;
 
-        public static FeatureRegistry GetFor(World world)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static void InitializeFeatureRegistry(World world)
         {
-            if (WorldFeatureRegistry.TryGetValue(world.identifier, out FeatureRegistry registry))
-                return registry;
-
-            registry = new FeatureRegistry(world);
+            var registry = new FeatureRegistry(world);
             WorldFeatureRegistry.Add(world.identifier, registry, out _);
-            return registry;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -39,6 +36,12 @@ namespace Assets.Scripts.morpeh.feature
             where TFeature : BaseFeature
         {
             return GetFor(world).GetFeature<TFeature>();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static FeatureRegistry GetFor(World world)
+        {
+            return WorldFeatureRegistry.GetValueByKey(world.identifier);
         }
 
         private FeatureRegistry(World world)
@@ -93,7 +96,7 @@ namespace Assets.Scripts.morpeh.feature
             return null;
         }
 
-        public void ClearRegisteredFeatures()
+        private void ClearRegisteredFeatures()
         {
             foreach (var registeredFeature in _registeredFeatures)
                 registeredFeature.Dispose();

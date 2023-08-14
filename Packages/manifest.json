@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.codewriter.triinspector": "https://github.com/codewriter-packages/Tri-Inspector.git",
     "com.scellecs.morpeh": "https://github.com/scellecs/morpeh.git#stage-2023.1",
     "com.unity.collab-proxy": "2.0.4",
     "com.unity.feature.development": "1.0.1",

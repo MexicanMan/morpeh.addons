@@ -1,6 +1,7 @@
 ﻿using Scellecs.Morpeh;
-using Assets.Scripts.morpeh.feature;
 using Assets.Scripts.Sample.PlayerInput;
+using Scellecs.Morpeh.Addons.Feature;
+using UnityEngine;
 
 namespace Assets.Scripts.Sample
 {
@@ -10,6 +11,12 @@ namespace Assets.Scripts.Sample
         private UpdateFeature[] _updateFeatures;
         private FixedUpdateFeature[] _fixedUpdateFeatures;
         private LateUpdateFeature[] _lateUpdateFeatures;
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
+        private static void AddPlugins()
+        {
+            WorldExtensions.AddWorldPlugin(new FeaturePlugin());
+        }
 
         protected void Awake()
         {
@@ -67,6 +74,5 @@ namespace Assets.Scripts.Sample
             for (int i = 0; i < _lateUpdateFeatures.Length; i++)
                 _defaultWorld.RemoveFeature(_lateUpdateFeatures[i]);
         }
-
     }
 }

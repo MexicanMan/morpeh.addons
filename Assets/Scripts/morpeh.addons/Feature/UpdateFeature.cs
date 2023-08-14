@@ -1,6 +1,7 @@
-﻿using Scellecs.Morpeh;
+﻿using Scellecs.Morpeh.Addons.Feature.ClearSystems;
+using Scellecs.Morpeh;
 
-namespace Assets.Scripts.morpeh.feature
+namespace Scellecs.Morpeh.Addons.Feature
 {
     public abstract class UpdateFeature : BaseFeature
     {
@@ -39,6 +40,16 @@ namespace Assets.Scripts.morpeh.feature
 
                 enabled = true;
             }
+        }
+
+        private protected override void PreInitialize()
+        {
+            AddSystem(new ClearFromStashSystem(eventsStashes));
+        }
+
+        private protected override void PostInitialize()
+        {
+            AddSystem(new ClearFromStashSystem(requestsStashes));
         }
     }
 }

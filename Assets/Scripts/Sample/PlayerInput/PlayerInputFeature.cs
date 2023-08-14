@@ -1,5 +1,6 @@
-﻿using Assets.Scripts.morpeh.feature;
+﻿using Assets.Scripts.Sample.PlayerInput.Components;
 using Assets.Scripts.Sample.PlayerInput.Systems;
+using Scellecs.Morpeh.Addons.Feature;
 
 namespace Assets.Scripts.Sample.PlayerInput
 {
@@ -8,6 +9,7 @@ namespace Assets.Scripts.Sample.PlayerInput
         protected override void Initialize()
         {
             AddSystem(new KeyboardInputSystem());
+            RegisterEvent<InputEvent>();
         }
     }
 }
