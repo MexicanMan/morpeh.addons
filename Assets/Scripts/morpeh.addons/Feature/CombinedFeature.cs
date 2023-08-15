@@ -1,4 +1,5 @@
 ﻿using JetBrains.Annotations;
+using Scellecs.Morpeh.Addons.OneShot;
 
 namespace Scellecs.Morpeh.Addons.Feature
 {
@@ -9,6 +10,12 @@ namespace Scellecs.Morpeh.Addons.Feature
             where TFeatureSystem : class, ISystem
         {
             featureSystemsGroup.AddSystem(system, enabled);
+        }
+
+        [PublicAPI]
+        public void RegisterOneShot<TOneShot>() where TOneShot : struct, IComponent
+        {
+            world.RegisterOneShot<TOneShot>();
         }
 
         public override void Enable()
