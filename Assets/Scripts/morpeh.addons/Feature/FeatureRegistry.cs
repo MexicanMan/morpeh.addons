@@ -1,5 +1,4 @@
-﻿using Scellecs.Morpeh;
-using Scellecs.Morpeh.Collections;
+﻿using Scellecs.Morpeh.Collections;
 using System;
 using System.Runtime.CompilerServices;
 
@@ -13,10 +12,16 @@ namespace Scellecs.Morpeh.Addons.Feature
         private FastList<BaseFeature> _registeredFeatures;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static void InitializeFeatureRegistry(World world)
+        public static void InitializeFeatureRegistry(World world)
         {
             var registry = new FeatureRegistry(world);
             WorldFeatureRegistry.Add(world.identifier, registry, out _);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static FeatureRegistry GetFor(World world)
+        {
+            return WorldFeatureRegistry.GetValueByKey(world.identifier);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -36,12 +41,6 @@ namespace Scellecs.Morpeh.Addons.Feature
             where TFeature : BaseFeature
         {
             return GetFor(world).GetFeature<TFeature>();
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static FeatureRegistry GetFor(World world)
-        {
-            return WorldFeatureRegistry.GetValueByKey(world.identifier);
         }
 
         private FeatureRegistry(World world)

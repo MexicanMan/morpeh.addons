@@ -1,15 +1,9 @@
 ﻿using Scellecs.Morpeh.Addons.Feature.ClearSystems;
-using Scellecs.Morpeh;
 
 namespace Scellecs.Morpeh.Addons.Feature
 {
-    public abstract class FixedUpdateFeature : BaseFeature
+    public abstract class FixedUpdateFeature : TypedFeature<IFixedSystem>
     {
-        public override BaseFeature AddSystem<IFixedSystem>(IFixedSystem system)
-        {
-            return base.AddSystem(system);
-        }
-
         public override void Enable()
         {
             if (!enabled)

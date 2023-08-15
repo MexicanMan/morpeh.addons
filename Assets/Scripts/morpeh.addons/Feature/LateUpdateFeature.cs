@@ -1,15 +1,9 @@
 ﻿using Scellecs.Morpeh.Addons.Feature.ClearSystems;
-using Scellecs.Morpeh;
 
 namespace Scellecs.Morpeh.Addons.Feature
 {
-    public abstract class LateUpdateFeature : BaseFeature
+    public abstract class LateUpdateFeature : TypedFeature<ILateSystem>
     {
-        public override BaseFeature AddSystem<ILateSystem>(ILateSystem system)
-        {
-            return base.AddSystem(system);
-        }
-
         public override void Enable()
         {
             if (!enabled)

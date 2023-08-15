@@ -1,11 +1,10 @@
 ﻿using Scellecs.Morpeh.Addons.Feature.ClearSystems;
-using Scellecs.Morpeh;
 
 namespace Scellecs.Morpeh.Addons.Feature
 {
-    public abstract class UpdateFeature : BaseFeature
+    public abstract class UpdateFeature : TypedFeature<ISystem>
     {
-        public override BaseFeature AddSystem<ISystem>(ISystem system)
+        public override void AddSystem(ISystem system)
         {
             if (system is IFixedSystem || system is ILateSystem || system is ICleanupSystem)
             {
@@ -14,10 +13,10 @@ namespace Scellecs.Morpeh.Addons.Feature
                     $"to the UpdateFeature \"{GetType()}\" because it is not exactly \"ISystem\".");
             #endif
 
-                return this;
+                return;
             }
 
-            return base.AddSystem(system);
+            base.AddSystem(system);
         }
 
         public override void Enable()
