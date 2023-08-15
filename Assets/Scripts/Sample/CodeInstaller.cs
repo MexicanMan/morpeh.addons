@@ -2,6 +2,7 @@
 using Assets.Scripts.Sample.PlayerInput;
 using Scellecs.Morpeh.Addons.Feature;
 using UnityEngine;
+using Scellecs.Morpeh.Addons;
 
 namespace Assets.Scripts.Sample
 {
@@ -12,10 +13,10 @@ namespace Assets.Scripts.Sample
         private FixedUpdateFeature[] _fixedUpdateFeatures;
         private LateUpdateFeature[] _lateUpdateFeatures;
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         private static void AddPlugins()
         {
-            WorldExtensions.AddWorldPlugin(new FeaturePlugin());
+            MorpehAddons.Initialize();
         }
 
         protected void Awake()

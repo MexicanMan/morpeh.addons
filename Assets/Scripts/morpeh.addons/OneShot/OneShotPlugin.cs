@@ -3,7 +3,7 @@
 namespace Scellecs.Morpeh.Addons.OneShot
 {
     [Preserve]
-    public sealed class OneShotPlugin : IWorldPlugin
+    internal sealed class OneShotPlugin : IWorldPlugin
     {
         private SystemsGroup _systemsGroup;
 
