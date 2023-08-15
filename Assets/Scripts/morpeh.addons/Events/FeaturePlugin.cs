@@ -1,23 +1,23 @@
 ﻿using UnityEngine.Scripting;
 
-namespace Scellecs.Morpeh.Addons.Feature
+namespace Scellecs.Morpeh.Addons.Events
 {
     [Preserve]
-    internal sealed class FeaturePlugin : IWorldPlugin
+    public sealed class EventsPlugin : IWorldPlugin
     {
         [Preserve]
-        public FeaturePlugin() { }
+        public EventsPlugin() { }
 
         [Preserve]
         public void Initialize(World world)
         {
-            FeatureRegistry.InitializeFeatureRegistry(world);
+            
         }
 
         [Preserve]
         public void Deinitialize(World world)
         {
-            FeatureRegistry.GetFor(world).Dispose();
+            
         }
     }
 }
