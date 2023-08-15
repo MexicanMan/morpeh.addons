@@ -1,5 +1,4 @@
 ﻿using JetBrains.Annotations;
-using Scellecs.Morpeh;
 using System.Runtime.CompilerServices;
 
 namespace Scellecs.Morpeh.Addons.Feature
@@ -10,7 +9,7 @@ namespace Scellecs.Morpeh.Addons.Feature
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static World AddFeature(this World world, int order, BaseFeature feature, bool enabled = true)
         {
-            feature.RegisterFeature(world, order, enabled);
+            feature.Register(world, order, enabled);
             FeatureRegistry.RegisterFeature(world, feature);
 
             return world;
