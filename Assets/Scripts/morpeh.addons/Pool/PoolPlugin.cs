@@ -1,12 +1,12 @@
 ﻿using UnityEngine.Scripting;
 
-namespace Scellecs.Morpeh.Addons.Events
+namespace Scellecs.Morpeh.Addons.Pool
 {
     [Preserve]
-    public sealed class EventsPlugin : IWorldPlugin
+    public sealed class PoolPlugin : IWorldPlugin
     {
         [Preserve]
-        public EventsPlugin() { }
+        public PoolPlugin() { }
 
         [Preserve]
         public void Initialize(World world)
