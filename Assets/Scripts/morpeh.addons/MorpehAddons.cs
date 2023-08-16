@@ -9,7 +9,7 @@ namespace Scellecs.Morpeh.Addons
         {
             WorldExtensions.AddWorldPlugin(new FeaturePlugin());
             WorldExtensions.AddWorldPlugin(new OneShotPlugin());
-            // Events..
+            // ToDo: Pools
         }
     }
 }
