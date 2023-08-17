@@ -1,5 +1,4 @@
-﻿using Scellecs.Morpeh;
-using Scellecs.Morpeh.Collections;
+﻿using Scellecs.Morpeh.Collections;
 
 namespace Scellecs.Morpeh.Addons.Feature.ClearSystems
 {

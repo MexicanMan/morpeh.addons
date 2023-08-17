@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Sample.PlayerInput.Components;
 using Scellecs.Morpeh;
+using Scellecs.Morpeh.Addons.Feature.OneFrames;
 using Unity.IL2CPP.CompilerServices;
 using UnityEngine;
 
@@ -20,7 +21,7 @@ namespace Assets.Scripts.Sample.PlayerInput.Systems
         {
             Vector2 keyboardInput = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
-            ref var cInputEvent = ref World.CreateEntity().AddComponent<InputEvent>();
+            ref var cInputEvent = ref World.CreateOneFrame<InputEvent>();
             cInputEvent.Input = keyboardInput;
             Debug.Log(cInputEvent.Input);
         }

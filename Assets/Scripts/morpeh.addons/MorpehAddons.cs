@@ -1,4 +1,5 @@
-﻿using Scellecs.Morpeh.Addons.Feature;
+﻿using Scellecs.Morpeh.Addons.EntityPool;
+using Scellecs.Morpeh.Addons.Feature;
 using Scellecs.Morpeh.Addons.OneShot;
 
 namespace Scellecs.Morpeh.Addons
@@ -9,7 +10,7 @@ namespace Scellecs.Morpeh.Addons
         {
             WorldExtensions.AddWorldPlugin(new FeaturePlugin());
             WorldExtensions.AddWorldPlugin(new OneShotPlugin());
-            // ToDo: Pools
+            WorldExtensions.AddWorldPlugin(new EntityPoolPlugin());
         }
     }
 }

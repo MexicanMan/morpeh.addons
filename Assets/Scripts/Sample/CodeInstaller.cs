@@ -3,6 +3,7 @@ using Assets.Scripts.Sample.PlayerInput;
 using Scellecs.Morpeh.Addons.Feature;
 using UnityEngine;
 using Scellecs.Morpeh.Addons;
+using Scellecs.Morpeh.Addons.EntityPool;
 
 namespace Assets.Scripts.Sample
 {

@@ -1,20 +1,23 @@
-﻿using UnityEngine.Scripting;
+﻿using Scellecs.Morpeh.Addons.EntityPool.Systems;
+using UnityEngine.Scripting;
 
-namespace Scellecs.Morpeh.Addons.OneShot
+namespace Scellecs.Morpeh.Addons.EntityPool
 {
     [Preserve]
-    public sealed class OneShotPlugin : IWorldPlugin
+    public sealed class EntityPoolPlugin : IWorldPlugin
     {
         private SystemsGroup _systemsGroup;
 
         [Preserve]
-        public OneShotPlugin() { }
+        public EntityPoolPlugin() { }
 
         [Preserve]
         public void Initialize(World world)
         {
+            EntityPoolRegistry.InitializeEntityPool(world);
+
             _systemsGroup = world.CreateSystemsGroup();
-            _systemsGroup.AddSystem(new OneShotCleanSystem());
+            _systemsGroup.AddSystem(new ReturnToPoolSystem(EntityPoolRegistry.GetFor(world)));
 
             world.AddPluginSystemsGroup(_systemsGroup);
         }
@@ -23,6 +26,8 @@ namespace Scellecs.Morpeh.Addons.OneShot
         public void Deinitialize(World world)
         {
             world.RemoveSystemsGroup(_systemsGroup);
+
+            EntityPoolRegistry.GetFor(world).Dispose();
         }
     }
 }
