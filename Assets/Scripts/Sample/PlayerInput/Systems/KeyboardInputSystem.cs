@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Sample.PlayerInput.Components;
 using Scellecs.Morpeh;
 using Scellecs.Morpeh.Addons.Feature.OneFrames;
+using Scellecs.Morpeh.Addons.Systems;
 using Unity.IL2CPP.CompilerServices;
 using UnityEngine;
 
@@ -9,15 +10,13 @@ namespace Assets.Scripts.Sample.PlayerInput.Systems
     [Il2CppSetOption(Option.NullChecks, false)]
     [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
-    internal sealed class KeyboardInputSystem : ISystem
+    internal sealed class KeyboardInputSystem : UpdateSystem
     {
-        public World World { get; set; }
-
-        public void OnAwake()
+        public override void OnAwake()
         {
         }
 
-        public void OnUpdate(float deltaTime)
+        public override void OnUpdate(float deltaTime)
         {
             Vector2 keyboardInput = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
@@ -25,7 +24,5 @@ namespace Assets.Scripts.Sample.PlayerInput.Systems
             cInputEvent.Input = keyboardInput;
             Debug.Log(cInputEvent.Input);
         }
-
-        public void Dispose() { }
     }
 }
