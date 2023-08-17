@@ -2,14 +2,10 @@
 using Scellecs.Morpeh;
 using Scellecs.Morpeh.Addons.Feature.OneFrames;
 using Scellecs.Morpeh.Addons.Systems;
-using Unity.IL2CPP.CompilerServices;
 using UnityEngine;
 
 namespace Assets.Scripts.Sample.PlayerInput.Systems
 {
-    [Il2CppSetOption(Option.NullChecks, false)]
-    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
-    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     internal sealed class KeyboardInputSystem : UpdateSystem
     {
         public override void OnAwake()
