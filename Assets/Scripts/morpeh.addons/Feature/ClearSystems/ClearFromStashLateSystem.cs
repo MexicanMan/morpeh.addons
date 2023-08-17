@@ -1,11 +1,10 @@
-﻿using Scellecs.Morpeh.Collections;
+﻿using Scellecs.Morpeh.Addons.Systems;
+using Scellecs.Morpeh.Collections;
 
 namespace Scellecs.Morpeh.Addons.Feature.ClearSystems
 {
-    internal sealed class ClearFromStashLateSystem : ILateSystem
+    internal sealed class ClearFromStashLateSystem : LateUpdateSystem
     {
-        public World World { get; set; }
-
         private readonly FastList<Stash> _stashes;
 
         public ClearFromStashLateSystem(FastList<Stash> stashes)
@@ -13,18 +12,14 @@ namespace Scellecs.Morpeh.Addons.Feature.ClearSystems
             _stashes = stashes;
         }
 
-        public void OnAwake()
+        public override void OnAwake()
         {   
         }
 
-        public void OnUpdate(float deltaTime)
+        public override void OnUpdate(float deltaTime)
         {
             foreach (var stash in _stashes)
                 stash.RemoveAll();
-        }
-
-        public void Dispose()
-        {
         }
     }
 }

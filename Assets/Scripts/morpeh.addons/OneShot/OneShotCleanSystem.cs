@@ -1,22 +1,21 @@
-﻿namespace Scellecs.Morpeh.Addons.OneShot
+﻿using Scellecs.Morpeh.Addons.Systems;
+
+namespace Scellecs.Morpeh.Addons.OneShot
 {
-    internal class OneShotCleanSystem : ICleanupSystem
+    internal class OneShotCleanSystem : CleanupSystem
     {
         private OneShotRegistry _registry;
-
-        public World World { get; set; }
-
-        public void OnAwake()
+        public override void OnAwake()
         {
             _registry = OneShotRegistry.GetFor(World);
         }
 
-        public void OnUpdate(float deltaTime)
+        public override void OnUpdate(float deltaTime)
         {
             _registry.CleanOneShots();
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
             _registry.Dispose();
         }
