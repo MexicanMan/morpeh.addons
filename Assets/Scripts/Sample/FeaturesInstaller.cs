@@ -4,7 +4,7 @@ using Scellecs.Morpeh.Addons.Feature.Unity;
 
 namespace Assets.Scripts.Sample
 {
-    public class FeaturesInstaller : CodeFeaturesInstaller
+    public class FeaturesInstaller : BaseFeaturesInstaller
     {
         protected override void InitializeShared()
         {
