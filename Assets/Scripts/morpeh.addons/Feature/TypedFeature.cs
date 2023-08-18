@@ -1,4 +1,5 @@
 ﻿using JetBrains.Annotations;
+using Scellecs.Morpeh.Addons.Feature.Events;
 using Scellecs.Morpeh.Addons.OneShot;
 using Scellecs.Morpeh.Collections;
 using System;
@@ -17,22 +18,22 @@ namespace Scellecs.Morpeh.Addons.Feature
         }
 
         [PublicAPI]
-        public void RegisterRequest<TRequest>(EventLifetime lifetime = EventLifetime.OneFrame)
+        public void RegisterRequest<TRequest>(EventLifetime lifetime = EventLifetime.NotifyAllSystems)
             where TRequest : struct, IComponent
         {
-            if (lifetime == EventLifetime.OneFrame)
+            if (lifetime == EventLifetime.NotifyAllSystems)
                 requestsStashes.Add(world.GetStash<TRequest>());
-            else if (lifetime == EventLifetime.OneShot)
+            else if (lifetime == EventLifetime.NotifyAllSystemsBelow)
                 world.RegisterOneShot<TRequest>();
         }
 
         [PublicAPI]
-        public void RegisterEvent<TEvent>(EventLifetime lifetime = EventLifetime.OneFrame)
+        public void RegisterEvent<TEvent>(EventLifetime lifetime = EventLifetime.NotifyAllSystems)
             where TEvent : struct, IComponent
         {
-            if (lifetime == EventLifetime.OneFrame)
+            if (lifetime == EventLifetime.NotifyAllSystems)
                 eventsStashes.Add(world.GetStash<TEvent>());
-            else if (lifetime == EventLifetime.OneShot)
+            else if (lifetime == EventLifetime.NotifyAllSystemsBelow)
                 world.RegisterOneShot<TEvent>();
         }
 

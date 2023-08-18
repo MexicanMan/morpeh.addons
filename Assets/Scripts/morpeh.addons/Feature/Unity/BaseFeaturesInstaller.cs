@@ -2,7 +2,7 @@
 
 namespace Scellecs.Morpeh.Addons.Feature.Unity
 {
-    public abstract class CodeFeaturesInstaller : BaseInstaller
+    public abstract class BaseFeaturesInstaller : BaseInstaller
     {
         protected World defaultWorld;
 
