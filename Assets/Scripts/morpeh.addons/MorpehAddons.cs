@@ -1,4 +1,4 @@
-﻿using Scellecs.Morpeh.Addons.EntityPool;
+﻿using Scellecs.Morpeh.Addons.EntityPool.v1;
 using Scellecs.Morpeh.Addons.Feature;
 using Scellecs.Morpeh.Addons.OneShot;
 

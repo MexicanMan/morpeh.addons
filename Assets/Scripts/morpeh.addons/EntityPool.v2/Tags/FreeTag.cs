@@ -1,6 +1,6 @@
 ﻿using Unity.IL2CPP.CompilerServices;
 
-namespace Scellecs.Morpeh.Addons.EntityPool.Tags
+namespace Scellecs.Morpeh.Addons.EntityPool.v2.Tags
 {
     [Il2CppSetOption(Option.NullChecks, false)]
     [Il2CppSetOption(Option.ArrayBoundsChecks, false)]

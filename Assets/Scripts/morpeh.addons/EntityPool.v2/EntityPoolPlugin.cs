@@ -1,7 +1,7 @@
-﻿using Scellecs.Morpeh.Addons.EntityPool.Systems;
+﻿using Scellecs.Morpeh.Addons.EntityPool.v2.Systems;
 using UnityEngine.Scripting;
 
-namespace Scellecs.Morpeh.Addons.EntityPool
+namespace Scellecs.Morpeh.Addons.EntityPool.v2
 {
     [Preserve]
     public sealed class EntityPoolPlugin : IWorldPlugin
