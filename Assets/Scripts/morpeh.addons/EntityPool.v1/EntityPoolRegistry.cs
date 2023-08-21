@@ -1,11 +1,11 @@
 ﻿using Scellecs.Morpeh;
-using Scellecs.Morpeh.Addons.EntityPool.Tags;
+using Scellecs.Morpeh.Addons.EntityPool.v1.Tags;
 using Scellecs.Morpeh.Collections;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
-namespace Scellecs.Morpeh.Addons.EntityPool
+namespace Scellecs.Morpeh.Addons.EntityPool.v1
 {
     internal sealed class EntityPoolRegistry : IDisposable
     {
@@ -13,11 +13,12 @@ namespace Scellecs.Morpeh.Addons.EntityPool
 
         private static readonly IntHashMap<EntityPoolRegistry> WorldEntityPoolRegistry = new IntHashMap<EntityPoolRegistry>();
 
+        internal FastList<Entity> EntitiesInUse { get; }
+        
         private readonly World _world;
         private readonly Stash<PooledEntityTag> _pooledTagStash;
-        private readonly Stash<FreeTag> _freeTagStash;
 
-        private Stack<Entity> _pooledEntities;
+        private readonly Stack<Entity> _pooledEntities;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void InitializeEntityPool(World world)
@@ -47,10 +48,10 @@ namespace Scellecs.Morpeh.Addons.EntityPool
         private EntityPoolRegistry(World world)
         {
             _world = world;
+            _pooledTagStash = _world.GetStash<PooledEntityTag>();
 
             _pooledEntities = new Stack<Entity>(DefaultStackCapacity);
-            _pooledTagStash = _world.GetStash<PooledEntityTag>();
-            _freeTagStash = _world.GetStash<FreeTag>();
+            EntitiesInUse = new FastList<Entity>();
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -58,31 +59,27 @@ namespace Scellecs.Morpeh.Addons.EntityPool
         {
             Entity entity;
             if (_pooledEntities.Count > 0)
-            {
                 entity = _pooledEntities.Pop();
-                _freeTagStash.Remove(entity);
-            }
             else
-            {
-                entity = CreatePooledEntityInUse();
-            }
+                entity = CreatePooledEntity();
 
+            EntitiesInUse.Add(entity);
             return entity;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void PoolEntity(Entity entity)
         {
-            if (!_pooledTagStash.Has(entity))
+            if (_pooledTagStash.Has(entity))
+                EntitiesInUse.RemoveSwap(entity, out _);
+            else
                 _pooledTagStash.Add(entity);
-            if (!_freeTagStash.Has(entity))
-                _freeTagStash.Add(entity);
 
             _pooledEntities.Push(entity);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private Entity CreatePooledEntityInUse()
+        private Entity CreatePooledEntity()
         {
             var entity = _world.CreateEntity();
             _pooledTagStash.Add(entity);
@@ -96,6 +93,7 @@ namespace Scellecs.Morpeh.Addons.EntityPool
                 pooledEntity.Dispose();
 
             _pooledEntities.Clear();
+            EntitiesInUse.Clear();
         }
 
         public void Dispose()

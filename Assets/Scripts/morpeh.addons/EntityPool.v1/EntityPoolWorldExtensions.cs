@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
 using System.Runtime.CompilerServices;
 
-namespace Scellecs.Morpeh.Addons.EntityPool
+namespace Scellecs.Morpeh.Addons.EntityPool.v1
 {
     public static class EntityPoolWorldExtensions
     {

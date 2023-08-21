@@ -1,7 +1,7 @@
-﻿using Scellecs.Morpeh.Addons.EntityPool.Tags;
+﻿using Scellecs.Morpeh.Addons.EntityPool.v2.Tags;
 using Scellecs.Morpeh.Addons.Systems;
 
-namespace Scellecs.Morpeh.Addons.EntityPool.Systems
+namespace Scellecs.Morpeh.Addons.EntityPool.v2.Systems
 {
     internal sealed class ReturnToPoolSystem : CleanupSystem
     {

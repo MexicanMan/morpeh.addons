@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 using System.Runtime.CompilerServices;
-using Scellecs.Morpeh.Addons.EntityPool;
+using Scellecs.Morpeh.Addons.EntityPool.v1;
 
 namespace Scellecs.Morpeh.Addons.Feature.Events
 {
