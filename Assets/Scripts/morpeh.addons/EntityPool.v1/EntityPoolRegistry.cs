@@ -50,8 +50,8 @@ namespace Scellecs.Morpeh.Addons.EntityPool.v1
             _world = world;
             _pooledTagStash = _world.GetStash<PooledEntityTag>();
 
-            _pooledEntities = new Stack<Entity>(DefaultStackCapacity);
             EntitiesInUse = new FastList<Entity>();
+            _pooledEntities = new Stack<Entity>(DefaultStackCapacity);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
