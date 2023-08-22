@@ -13,11 +13,10 @@ namespace Scellecs.Morpeh.Addons.EntityPool.v1
 
         private static readonly IntHashMap<EntityPoolRegistry> WorldEntityPoolRegistry = new IntHashMap<EntityPoolRegistry>();
 
-        internal FastList<Entity> EntitiesInUse { get; }
-        
         private readonly World _world;
         private readonly Stash<PooledEntityTag> _pooledTagStash;
 
+        private readonly FastList<Entity> _entitiesInUse;
         private readonly Stack<Entity> _pooledEntities;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -50,7 +49,7 @@ namespace Scellecs.Morpeh.Addons.EntityPool.v1
             _world = world;
             _pooledTagStash = _world.GetStash<PooledEntityTag>();
 
-            EntitiesInUse = new FastList<Entity>();
+            _entitiesInUse = new FastList<Entity>();
             _pooledEntities = new Stack<Entity>(DefaultStackCapacity);
         }
 
@@ -63,7 +62,7 @@ namespace Scellecs.Morpeh.Addons.EntityPool.v1
             else
                 entity = CreatePooledEntity();
 
-            EntitiesInUse.Add(entity);
+            _entitiesInUse.Add(entity);
             return entity;
         }
 
@@ -71,11 +70,34 @@ namespace Scellecs.Morpeh.Addons.EntityPool.v1
         public void PoolEntity(Entity entity)
         {
             if (_pooledTagStash.Has(entity))
-                EntitiesInUse.RemoveSwap(entity, out _);
+                _entitiesInUse.RemoveSwap(entity, out _);
             else
                 _pooledTagStash.Add(entity);
 
             _pooledEntities.Push(entity);
+        }
+
+        public void PoolAllNotInUseEntities()
+        {
+            int i = 0;
+            foreach (var entityInUse in _entitiesInUse)
+            {
+                if (entityInUse.currentArchetypeLength == 1)
+                {
+                #if MORPEH_DEBUG
+                    if (!_pooledTagStash.Has(entityInUse))
+                        MLogger.LogWarning($"You should never delete PooledTag from pool entity! " +
+                            $"Entity id: {entityInUse.ID.id}.");
+                #endif
+
+                    _entitiesInUse.RemoveAtSwap(i, out FastList<Entity>.ResultSwap _);
+                    _pooledEntities.Push(entityInUse);
+                }
+                else
+                {
+                    i++;
+                }
+            }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -93,7 +115,7 @@ namespace Scellecs.Morpeh.Addons.EntityPool.v1
                 pooledEntity.Dispose();
 
             _pooledEntities.Clear();
-            EntitiesInUse.Clear();
+            _entitiesInUse.Clear();
         }
 
         public void Dispose()
