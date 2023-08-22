@@ -114,6 +114,13 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+    "com.unity.profiling.core": {
+      "version": "1.0.2",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.unity.scriptablebuildpipeline": {
       "version": "1.21.5",
       "depth": 3,
