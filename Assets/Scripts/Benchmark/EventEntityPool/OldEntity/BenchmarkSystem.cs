@@ -40,6 +40,8 @@ namespace Assets.Scripts.Benchmark.EventEntityPool.OldEntity
         {
             foreach (var e in _events)
                 e.RemoveComponent<EcsEvent>();
+            
+            World.Commit();
 
             foreach (var e in _dontDestroyEntities)
                 e.AddComponent<EcsEvent>();

@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e0575628a5749f3ad448054f652c381, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eventsPerFrame: 1000
+  _eventsPerFrame: 10000
   _benchmarkType: 2
 --- !u!4 &1162354860
 Transform:
