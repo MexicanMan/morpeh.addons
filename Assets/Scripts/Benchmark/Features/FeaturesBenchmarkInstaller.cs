@@ -6,7 +6,7 @@ namespace Assets.Scripts.Benchmark.Features
 {
     public class FeaturesBenchmarkInstaller : BaseFeaturesInstaller
     {
-        public const int FeaturesCount = 5;
+        public const int FeaturesCount = 20;
         
         [SerializeField]
         private int _eventsPerFrame = 1000;
@@ -24,6 +24,21 @@ namespace Assets.Scripts.Benchmark.Features
                 new Feature3(_eventsPerFrame / FeaturesCount),
                 new Feature4(_eventsPerFrame / FeaturesCount),
                 new Feature5(_eventsPerFrame / FeaturesCount),
+                new Feature6(_eventsPerFrame / FeaturesCount),
+                new Feature7(_eventsPerFrame / FeaturesCount),
+                new Feature8(_eventsPerFrame / FeaturesCount),
+                new Feature9(_eventsPerFrame / FeaturesCount),
+                new Feature10(_eventsPerFrame / FeaturesCount),
+                new Feature11(_eventsPerFrame / FeaturesCount),
+                new Feature12(_eventsPerFrame / FeaturesCount),
+                new Feature13(_eventsPerFrame / FeaturesCount),
+                new Feature14(_eventsPerFrame / FeaturesCount),
+                new Feature15(_eventsPerFrame / FeaturesCount),
+                new Feature16(_eventsPerFrame / FeaturesCount),
+                new Feature17(_eventsPerFrame / FeaturesCount),
+                new Feature18(_eventsPerFrame / FeaturesCount),
+                new Feature19(_eventsPerFrame / FeaturesCount),
+                new Feature20(_eventsPerFrame / FeaturesCount),
             };
         }
 
