@@ -1,5 +1,4 @@
 ﻿using Scellecs.Morpeh;
-using Scellecs.Morpeh.Addons.Feature.Events;
 using Scellecs.Morpeh.Addons.Systems;
 
 namespace Assets.Scripts.Benchmark.Features
@@ -19,18 +18,13 @@ namespace Assets.Scripts.Benchmark.Features
 
         public override void OnUpdate(float deltaTime)
         {
-            if (_usePool)
+            for (int i = 0; i < _eventsCount / 2; i++)
             {
-                for (int i = 0; i < _eventsCount; i++)
-                    World.CreateEventEntity<EcsEvent1>();
-            }
-            else
-            {
-                for (int i = 0; i < _eventsCount; i++)
-                {
-                    var e = World.CreateEntity();
-                    e.AddComponent<EcsEvent1>();
-                }
+                var e = World.CreateEntity();
+                e.AddComponent<EcsEvent1>();
+                
+                e = World.CreateEntity();
+                e.AddComponent<EcsRequest1>();
             }
         }
     }

@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 868b98d47170470ca2e0de4f97d47b23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eventsPerFrame: 100
+  _eventsPerFrame: 100000
 --- !u!4 &18442017
 Transform:
   m_ObjectHideFlags: 0
@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae279f140f5f48939ab27a4321e9a3fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eventsPerFrame: 100
+  _eventsPerFrame: 100000
 --- !u!4 &697890506
 Transform:
   m_ObjectHideFlags: 0

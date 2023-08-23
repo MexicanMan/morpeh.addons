@@ -12,6 +12,12 @@ namespace Assets.Scripts.Benchmark.Features
             World.RegisterOneFrame<EcsEvent3>();
             World.RegisterOneFrame<EcsEvent4>();
             World.RegisterOneFrame<EcsEvent5>();
+            
+            World.RegisterOneFrame<EcsRequest1>();
+            World.RegisterOneFrame<EcsRequest2>();
+            World.RegisterOneFrame<EcsRequest3>();
+            World.RegisterOneFrame<EcsRequest4>();
+            World.RegisterOneFrame<EcsRequest5>();
         }
     }
 }

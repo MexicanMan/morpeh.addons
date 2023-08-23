@@ -13,8 +13,9 @@ namespace Assets.Scripts.Benchmark.Features
 
         protected override void Initialize()
         {
-            AddSystem(new System1(_eventsPerFrame, true));
+            AddSystem(new System1(_eventsPerFrame, false));
             RegisterEvent<EcsEvent1>();
+            RegisterRequest<EcsRequest1>();
         }
     }
 }

@@ -19,18 +19,13 @@ namespace Assets.Scripts.Benchmark.Features
 
         public override void OnUpdate(float deltaTime)
         {
-            if (_usePool)
+            for (int i = 0; i < _eventsCount / 2; i++)
             {
-                for (int i = 0; i < _eventsCount; i++)
-                    World.CreateEventEntity<EcsEvent5>();
-            }
-            else
-            {
-                for (int i = 0; i < _eventsCount; i++)
-                {
-                    var e = World.CreateEntity();
-                    e.AddComponent<EcsEvent5>();
-                }
+                var e = World.CreateEntity();
+                e.AddComponent<EcsEvent5>();
+                
+                e = World.CreateEntity();
+                e.AddComponent<EcsRequest5>();
             }
         }
     }
