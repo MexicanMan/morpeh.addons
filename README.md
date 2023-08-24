@@ -2,7 +2,7 @@
 
 [![Unity](https://img.shields.io/badge/Unity-2020.3%2B-black)](https://unity3d.com/pt/get-unity/download/archive) 
 [![Morpeh](https://img.shields.io/badge/Morpeh-2023.1-3750c1)](https://github.com/scellecs/morpeh/) 
-[![License](https://img.shields.io/badge/License-MIT-yellow)]()
+[![License](https://img.shields.io/badge/License-MIT-yellow)](License.md)
 
 Набор дополнительных инструментов для [Morpeh ECS](https://github.com/scellecs/morpeh/), добавляющих сахара для более "_feature-friendly_" синтаксиса фреймворка.
 
