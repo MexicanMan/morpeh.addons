@@ -2,7 +2,7 @@
 
 [![Unity](https://img.shields.io/badge/Unity-2020.3%2B-black)](https://unity3d.com/pt/get-unity/download/archive) 
 [![Morpeh](https://img.shields.io/badge/Morpeh-2023.1-3750c1)](https://github.com/scellecs/morpeh/) 
-[![License](https://img.shields.io/badge/License-MIT-yellow)]()
+[![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE.md)
 
 Набор дополнительных инструментов для [Morpeh ECS](https://github.com/scellecs/morpeh/), добавляющих сахара для более "_feature-friendly_" синтаксиса фреймворка.
 
@@ -10,10 +10,10 @@
 
 ## Как поставить
 
-Минимальная версия Unity - 2020.3.* LTS \
-Также удостоверьтесь, что уже стоит Morpeh 2023.1
+Минимальная версия Unity - *Unity 2020.3.\* LTS* \
+Также удостоверьтесь, что уже стоит *Morpeh 2023.1*
 
-Откройте Package Manager и выберите "Add package from git url...". Затем вставьте следующую строку:
+Откройте *Package Manager* и выберите *"Add package from git url..."* и затем вставьте следующую строку:
 * `https://git.gameslab.store/nikita.nazarenko/morpehaddons.git?path=/Assets/Scripts/morpeh.addons`
 
 ## Из чего состоит пакет
@@ -29,7 +29,7 @@
 
 После регистрации "OneShot компонента" и добавлении его на какую-либо сущность, этот компонент будет сам автоматически очищен в конце кадра в специальной Cleanup системе (во время Late Update).
 
-**API:**
+**API плагина:**
 | Методы | Описание |
 | ------ | ------ |
 | `World.RegisterOneShot<TComponent>()` | Метод для регистрации OneShot компонента указанного типа |
