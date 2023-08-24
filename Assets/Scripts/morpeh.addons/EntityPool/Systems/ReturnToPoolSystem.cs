@@ -1,6 +1,6 @@
 ﻿using Scellecs.Morpeh.Addons.Systems;
 
-namespace Scellecs.Morpeh.Addons.EntityPool.v1.Systems
+namespace Scellecs.Morpeh.Addons.EntityPool.Systems
 {
     internal sealed class ReturnToPoolSystem : CleanupSystem
     {

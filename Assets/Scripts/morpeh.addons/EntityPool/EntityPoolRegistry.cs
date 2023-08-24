@@ -1,11 +1,11 @@
 ﻿using Scellecs.Morpeh;
-using Scellecs.Morpeh.Addons.EntityPool.v1.Tags;
+using Scellecs.Morpeh.Addons.EntityPool.Tags;
 using Scellecs.Morpeh.Collections;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
-namespace Scellecs.Morpeh.Addons.EntityPool.v1
+namespace Scellecs.Morpeh.Addons.EntityPool
 {
     internal sealed class EntityPoolRegistry : IDisposable
     {
