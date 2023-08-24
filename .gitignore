@@ -82,3 +82,5 @@ packages.config
 
 hooks
 lfs
+
+.vsconfig
