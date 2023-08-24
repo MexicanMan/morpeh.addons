@@ -10,10 +10,10 @@
 
 ## Как поставить
 
-Минимальная версия Unity - 2020.3.* LTS \
-Также удостоверьтесь, что уже стоит Morpeh 2023.1
+Минимальная версия Unity - *Unity 2020.3.\* LTS* \
+Также удостоверьтесь, что уже стоит *Morpeh 2023.1*
 
-Откройте Package Manager и выберите "Add package from git url...". Затем вставьте следующую строку:
+Откройте *Package Manager* и выберите *"Add package from git url..."* и затем вставьте следующую строку:
 * `https://git.gameslab.store/nikita.nazarenko/morpehaddons.git?path=/Assets/Scripts/morpeh.addons`
 
 ## Из чего состоит пакет
@@ -29,7 +29,7 @@
 
 После регистрации "OneShot компонента" и добавлении его на какую-либо сущность, этот компонент будет сам автоматически очищен в конце кадра в специальной Cleanup системе (во время Late Update).
 
-**API:**
+**API плагина:**
 | Методы | Описание |
 | ------ | ------ |
 | `World.RegisterOneShot<TComponent>()` | Метод для регистрации OneShot компонента указанного типа |
