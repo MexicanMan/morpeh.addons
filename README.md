@@ -4,7 +4,7 @@
 [![Morpeh](https://img.shields.io/badge/Morpeh-2023.1-3750c1)](https://github.com/scellecs/morpeh/) 
 [![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE.md)
 
-Набор дополнительных инструментов для [Morpeh ECS](https://github.com/scellecs/morpeh/), добавляющих сахара для более "_feature-friendly_" синтаксиса фреймворка.
+Набор дополнительных инструментов для [Morpeh ECS](https://github.com/scellecs/morpeh/), добавляющих сахара для реализации более "_feature-friendly_" синтаксиса фреймворка.
 
 ***NB: Поддерживается исключительно Morpeh 2023.1, который находится еще в разработке***
 
@@ -20,7 +20,7 @@
 
 ### Systems
 
-Набор чистых базовых классов систем, реализующих следующие интерфейсы Morpeh'а: `IInitializer`, `ISystem`, `IFixedSystem`, `ILateSystem` и `ICleanupSystem` по аналогии с встроенными в Morpeh SO [системами](https://github.com/scellecs/morpeh/tree/main/Unity/Systems). \
+Набор чистых базовых классов систем, реализующих следующие интерфейсы Morpeh'а: `IInitializer`, `ISystem`, `IFixedSystem`, `ILateSystem` и `ICleanupSystem` по аналогии со встроенными в Morpeh [SO системами](https://github.com/scellecs/morpeh/tree/main/Unity/Systems). \
 Используются сугубо для удобства, чтобы не прописывать для каждой очередной системы потенциально пустой метод `Dispose` и свойство `World`, которое используется везде.
 
 ### OneShot
@@ -34,13 +34,24 @@
 | ------ | ------ |
 | `World.RegisterOneShot<TComponent>()` | Метод для регистрации OneShot компонента указанного типа |
 
-Данный плагин _необходим_ для [Feature плагина](#feature).
+Данный плагин <ins>необходим</ins> для [Feature плагина](#feature).
 
 _NB:_ Для использования OneShot плагина отдельно от остальных плагинов входящих в MorpehAddons достаточно внутри статического `[RuntimeInitializeOnLoadMethod]` метода вызвать следующее: `WorldExtensions.AddWorldPlugin(new OneShotPlugin());`.
 
-### EntityPool
+### Entity Pool
 
+Плагин предоставляет возможность использовать пул сущностей, которые после удаления всех своих компонентов (за исключением зарезервированного тега-компонента `PooledEntityTag`) возвращаются в пул свободных сущностей, а не просто удаляются. \
+Необходимо понимать, что хранение любых ссылок на пулированные сущности может быть <ins>небезопасно</ins>, и плагин <ins>рекомендуется</ins> использовать исключительно для часто ротирующихся сущностей с неизменяемым и небольшим количеством компонент. Например, для сущностей эвентов или реквестов, которые обычно не живут больше кадра и содержат только один компонент.
 
+**API плагина:**
+| Методы | Описание |
+| ------ | ------ |
+| `World.GetPooledEntity()` | Метод для получения сущности из пула |
+| `World.PoolEntity(Entity)` | Метод для возвращения сущности обратно в пул. Может также использоваться для добавления новой сущности в пул: `PooledEntityTag` сам добавится на такую новую сущность. |
+
+Данный плагин <ins>необходим</ins> для [Feature плагина](#feature).
+
+_NB:_ Для использования Entity Pool плагина отдельно от остальных плагинов входящих в MorpehAddons достаточно внутри статического `[RuntimeInitializeOnLoadMethod]` метода вызвать следующее: `WorldExtensions.AddWorldPlugin(new EntityPoolPlugin());`.
 
 ### Feature
 
