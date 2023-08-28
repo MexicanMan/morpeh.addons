@@ -13,7 +13,7 @@
 Минимальная версия Unity - *Unity 2020.3.\* LTS* \
 Также удостоверьтесь, что уже стоит *Morpeh 2023.1*
 
-Откройте *Package Manager* и выберите *"Add package from git url..."* и затем вставьте следующую строку:
+Откройте *Package Manager*, выберите *"Add package from git url..."* и затем вставьте следующую строку:
 * `https://git.gameslab.store/nikita.nazarenko/morpehaddons.git?path=/Assets/Scripts/morpeh.addons`
 
 ## Из чего состоит пакет
