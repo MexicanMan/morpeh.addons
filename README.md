@@ -118,6 +118,10 @@ internal class PlayerInputFeature : UpdateFeature
 }
 ```
 
+Общий пайплайн фичи выглядит следующим образом:
+
+![Feature Pipeline](Imgs/feature_pipeline.png)
+
 \* - Для реквестов и эвентов может быть задан иной цикл жизни, когда уничтожение запускается в конце текущего фрейма. Для этого у методов `RegisterRequest<TRequest>()` и `RegisterEvent<TEvent>()` есть необязательный параметр `lifetime`, по умолчанию равный `EventLifetime.NotifyAllSystems`. Чтобы уничтожение заданных реквестов или событий запускалось в конце кадра необходимо указать `lifetime = EventLifetime.NotifyAllSystemsBelow`.
 
 *NB:* Для `CombinedFeature`, в силу особенностей реализации, методы `RegisterRequest()` и `RegisterEvent()` объединены в один - `RegisterOneShot<TOneShot>()`. Удаляться такие компоненты соответственно всегда будут только в конце текущего кадра.
