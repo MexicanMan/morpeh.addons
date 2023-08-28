@@ -86,7 +86,7 @@ namespace Scellecs.Morpeh.Addons.EntityPool
                 {
                 #if MORPEH_DEBUG
                     if (!_pooledTagStash.Has(entityInUse))
-                        MLogger.LogWarning($"You should never delete PooledTag from pool entity! " +
+                        MLogger.LogError($"You should never delete PooledEntityTag from pool entity! " +
                             $"Entity id: {entityInUse.ID.id}.");
                 #endif
 
