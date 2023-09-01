@@ -3,7 +3,7 @@ using Scellecs.Morpeh.Addons.Feature;
 
 namespace Assets.Scripts.Sample.PlayerInput
 {
-    internal class PlayerInputFeature : UpdateFeature
+    public class PlayerInputFeature : UpdateFeature
     {
         protected override void Initialize()
         {

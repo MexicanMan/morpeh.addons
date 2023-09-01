@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Sample.Spawn
 {
-    internal class SpawnFeature : UpdateFeature
+    public class SpawnFeature : UpdateFeature
     {
         private readonly GameObject _cubePrefab;
 
