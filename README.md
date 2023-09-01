@@ -14,7 +14,7 @@
 Также удостоверьтесь, что уже стоит *Morpeh 2023.1*
 
 Откройте *Package Manager*, выберите *"Add package from git url..."* и затем вставьте следующую строку:
-* `https://git.gameslab.store/nikita.nazarenko/morpehaddons.git?path=/Assets/Scripts/morpeh.addons`
+* `https://git.gameslab.store/nikita.nazarenko/morpehaddons.git?path=/Assets/morpeh.addons`
 
 ## Из чего состоит пакет
 
@@ -170,4 +170,4 @@ _NB:_ Так как Feature плагин не может использоват�
 
 ## Примеры
 
-* ToDo...
+* Небольшой семпл может быть найден [здесь](Assets/Sample)
