@@ -18,6 +18,9 @@ namespace Scellecs.Morpeh.Addons.Feature.Unity
 
         protected void Awake()
         {
+            if (World.Default == null)
+                World.Create();
+
             defaultWorld = World.Default;
 
             InitializeShared();
