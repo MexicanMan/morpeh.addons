@@ -19,7 +19,10 @@ namespace Scellecs.Morpeh.Addons.Feature.Unity
         protected void Awake()
         {
             if (World.Default == null)
-                World.Create();
+            {
+                var world = World.Create("Default World");
+                world.UpdateByUnity = true;
+            }
 
             defaultWorld = World.Default;
 
