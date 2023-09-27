@@ -24,7 +24,7 @@ Unity minimum version - *Unity 2020.3.\* LTS* \
 Also make sure you already have *Morpeh 2023.1* installed.
 
 Open *Package Manager*, select *"Add package from git url..."* and then insert the following:
-* `https://github.com/MexicanMan/morpeh.addons?path=/Assets/morpeh.addons`
+* `https://github.com/MexicanMan/morpeh.addons.git?path=/Assets/morpeh.addons`
 
 ## Package Description
 

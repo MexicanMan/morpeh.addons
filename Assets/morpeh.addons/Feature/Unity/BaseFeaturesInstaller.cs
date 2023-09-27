@@ -24,6 +24,8 @@ namespace Scellecs.Morpeh.Addons.Feature.Unity
                 world.UpdateByUnity = true;
             }
 
+            defaultWorld = World.Default;
+            
             InitializeShared();
             InitializeFeatures();
         }
