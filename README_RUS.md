@@ -24,7 +24,7 @@
 Также удостоверьтесь, что уже стоит *Morpeh 2023.1*
 
 Откройте *Package Manager*, выберите *"Add package from git url..."* и затем вставьте следующую строку:
-* `https://github.com/MexicanMan/morpeh.addons?path=/Assets/morpeh.addons`
+* `https://github.com/MexicanMan/morpeh.addons.git?path=/Assets/morpeh.addons`
 
 ## Из чего состоит пакет
 
