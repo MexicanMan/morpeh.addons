@@ -1,79 +1,89 @@
-# Morpeh.Addons
+# MorpehAddons
 
 [![Unity](https://img.shields.io/badge/Unity-2020.3%2B-black)](https://unity3d.com/pt/get-unity/download/archive) 
 [![Morpeh](https://img.shields.io/badge/Morpeh-2023.1-3750c1)](https://github.com/scellecs/morpeh/) 
 [![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE.md)
 
-Набор дополнительных инструментов для [Morpeh ECS](https://github.com/scellecs/morpeh/), добавляющих сахара для реализации более "_feature-friendly_" синтаксиса фреймворка.
+A set of additional tools for [Morpeh ECS](https://github.com/scellecs/morpeh/), adding sugar to implement a more "_feature-friendly_" framework syntax.
 
-***NB: Пакет не является официальной частью Morpeh ECS***
+***NB: This package is not an official part of Morpeh ECS***
 
-## Как поставить
+## Table of Contents
 
-Минимальная версия Unity - *Unity 2020.3.\* LTS* \
-Также удостоверьтесь, что уже стоит *Morpeh 2023.1*
+* [How to install](#how-to-install)
+* [Package Description](#package-description)
+    * [Systems](#systems)
+    * [OneShot](#oneshot)
+    * [Entity Pool](#entity-pool)
+    * [Feature](#feature)
+* [Examples](#examples)
 
-Откройте *Package Manager*, выберите *"Add package from git url..."* и затем вставьте следующую строку:
+## How to install
+
+Unity minimum version - *Unity 2020.3.\* LTS* \
+Also make sure you already have *Morpeh 2023.1* installed.
+
+Open *Package Manager*, select *"Add package from git url..."* and then insert the following:
 * `https://github.com/MexicanMan/morpeh.addons?path=/Assets/morpeh.addons`
 
-## Из чего состоит пакет
+## Package Description
 
 ### Systems
 
-Набор чистых базовых классов систем, реализующих следующие интерфейсы Morpeh'а: `IInitializer`, `ISystem`, `IFixedSystem`, `ILateSystem` и `ICleanupSystem` по аналогии со встроенными в Morpeh [SO системами](https://github.com/scellecs/morpeh/tree/main/Unity/Systems). \
-Используются сугубо для удобства, чтобы не прописывать для каждой очередной системы потенциально пустой метод `Dispose` и свойство `World`, которое используется везде.
+A set of pure base system classes implementing the following Morpeh interfaces: `IInitializer`, `ISystem`, `IFixedSystem`, `ILateSystem` and `ICleanupSystem` similar to the built-in Morpeh [SO systems](https://github.com/scellecs/morpeh/tree/main/Unity/Systems). \
+They are used to avoid having to write for each system a potentially empty `Dispose()` method and `World` property, which is used everywhere.
 
 
 ### OneShot
 
-Аналог OneFrame компонентов из [этого плагина](https://github.com/SH42913/morpeh.helpers) с новым названием, слегка переписанный с использованием нового API Morpeh 2023.1.
+An analogue of OneFrame components from [this plugin](https://github.com/SH42913/morpeh.helpers) with a new name, slightly rewritten using the new Morpeh 2023.1 API.
 
-После регистрации "OneShot компонента" и добавлении его на какую-либо сущность, этот компонент будет сам автоматически очищен в конце кадра в специальной Cleanup системе (во время Late Update).
+After registering a "OneShot component" and adding it to an entity, this component will be automatically cleaned itself at the end of the frame in a special Cleanup system (during Late Update).
 
-Данный плагин <ins>необходим</ins> для работы [Feature плагина](#feature).
+This plugin is <ins>essential</ins> for [Feature plugin](#feature) work.
 
-#### API плагина
+#### Plugin API 
 
-| Методы | Описание |
-| ------ | ------ |
-| `World.RegisterOneShot<TComponent>()` | Регистрация OneShot компонента указанного типа |
+| Methods | Description |
+| ------- | ----------- |
+| `World.RegisterOneShot<TComponent>()` | Registering a OneShot component of the specified type |
 
-_NB:_ Для использования OneShot плагина отдельно от остальных плагинов, входящих в MorpehAddons, достаточно внутри статического `[RuntimeInitializeOnLoadMethod]` метода вызвать следующее: `WorldExtensions.AddWorldPlugin(new OneShotPlugin());`.
+_NB:_ To use the OneShot plugin separately from the rest of the plugins included in MorpehAddons, just call the following inside the static `[RuntimeInitializeOnLoadMethod]` method: `WorldExtensions.AddWorldPlugin(new OneShotPlugin());`.
 
 
 ### Entity Pool
 
-Плагин предоставляет возможность использовать пул сущностей, которые после удаления всех своих компонентов (за исключением зарезервированного тега-компонента `PooledEntityTag`) возвращаются в пул свободных сущностей, а не просто удаляются. \
-Необходимо понимать, что хранение любых ссылок на пулированные сущности может быть <ins>небезопасно</ins>, и плагин <ins>рекомендуется</ins> использовать исключительно для часто ротирующихся сущностей с неизменяемым количеством компонент после создания. Например, для сущностей эвентов или реквестов, которые обычно не живут больше кадра и содержат только один компонент.
+The plugin provides the ability to use an entity pool that, after deleting all its components (except for the reserved `PooledEntityTag` component tag), is returned to the free entity pool rather than simply deleted. \
+It is important to understand that storing any references to pooled entities can be <ins>insecure</ins>, and the plugin is <ins>recommended</ins> to be used exclusively for frequently rotated entities with an unchanging number of components after creation. For example, for event or request entities, which usually don't live more than a frame and contain only one component.
 
-Данный плагин <ins>необходим</ins> для работы [Feature плагина](#feature).
+This plugin is <ins>essential</ins> for [Feature plugin](#feature) work.
 
-#### API плагина
+#### Plugin API
 
-| Методы | Описание |
-| ------ | ------ |
-| `Entity World.GetPooledEntity()` | Получение сущности из пула |
-| `World.PoolEntity(Entity entity)` | Возвращение сущности обратно в пул. Может также использоваться для добавления новой сущности в пул: `PooledEntityTag` сам добавится на такую новую сущность |
+| Methods | Description |
+| ------- | ----------- |
+| `Entity World.GetPooledEntity()` | Retrieving an entity from a pool |
+| `World.PoolEntity(Entity entity)` | Returning the entity back to the pool. It can also be used to add a new entity to the pool: The `PooledEntityTag` will be added to the new entity by itself. |
 
-_NB:_ Для использования Entity Pool плагина отдельно от остальных плагинов, входящих в MorpehAddons, достаточно внутри статического `[RuntimeInitializeOnLoadMethod]` метода вызвать следующее: `WorldExtensions.AddWorldPlugin(new EntityPoolPlugin());`.
+_NB:_ To use the Entity Pool plugin separately from the rest of the plugins included in MorpehAddons, just call the following inside the static `[RuntimeInitializeOnLoadMethod]` method: `WorldExtensions.AddWorldPlugin(new EntityPoolPlugin());`.
 
 
 ### Feature
 
-Основной плагин пакета, предоставляющий тот самый "*feature-friendly*" синтаксис для Morpeh'а. 
+The main plugin of the package, providing that very "*feature-friendly*" syntax for Morpeh. 
 
-Данному плагину для работы <ins>требуются</ins> [OneShot](#oneshot) и [Entity Pool](#entity-pool) плагины.
+This plugin <ins>requires</ins> the [OneShot](#oneshot) and [Entity Pool](#entity-pool) plugins to work.
 
-#### Фичи
+#### Features
 
-**Feature** (фича) - некоторая законченная обособленная игровая функциональность, например, механика передвижения - `MovementFeature`. Размер фичи может варьироваться и содержать в том числе "подфичи", хотя на практике лучше стараться придерживаться максимально атомарных фич.
+**Feature** is some complete standalone game functionality, e.g. movement mechanic - `MovementFeature`. The size of a feature can vary and may include "sub-features", although in practice it is better to stick to atomic features as much as possible.
 
 ```csharp
 internal class MovementFeature : UpdateFeature
 {
     protected override void Initialize()
     {
-        // Можно также добавить инициализаторы
+        // You can also add initializers
         //AddInitializer(new SomeInitializer());
 
         AddSystem(new PlayerDirectionSystem());
@@ -82,16 +92,16 @@ internal class MovementFeature : UpdateFeature
 }
 ```
 
-В рамках пакета есть два основных вида фич: 
-* `TypedFeature<TFeatureSystem>` - "типизированные" по Update Queue фичи, то есть все системы будут выполняться исключительно в заданном Update Queue. Делится на 3 базовых класса - `UpdateFeature`, `FixedUpdateFeature` и `LateUpdateFeature`.
-* `CombinedFeature` - фича для систем, работающих в комбинированных Update Queue. В данную фичу можно одновременно добавлять как системы работающие в обычном апдейте (`ISystem`), так и FixedUpdate системы, и LateUpdate системы.
+There are two main types of features within the package: 
+* `TypedFeature<TFeatureSystem>` - "typed" by Update Queue features, which means that all systems will run exclusively in a given Update Queue. It is divided into 3 base classes - `UpdateFeature`, `FixedUpdateFeature` and `LateUpdateFeature`.
+* `CombinedFeature` - a feature for systems running in a combined Update Queue. You can add systems working in a regular update (`ISystem`), FixedUpdate systems, and LateUpdate systems to this feature at the same time.
 
-#### Реквесты и События
+#### Requests and Events
 
-Для связи фич между собой, помимо обычных компонент и данных мира, также применяются понятия реквестов (Requests) и эвентов/событий (Events):
+In addition to the usual components and world data, the concepts of Requests and Events are also used to link features to each other:
 
-* **Реквест** - компонент, который может быть создан из любой фичи для запроса выполнить какое-либо действие внутри фичи, к которой принадлежит сам реквест. Время жизни такого компонента может быть меньше 1-го цикла пайплайна. Как только он дойдет до системы, которая выполняет его в фиче, то будет обработан и после этого автоматически удален. Удаление происходит после отработки всех систем фичи, вместе со всеми остальными реквестами данной фичи из-за соображений производительности. \
-Все реквесты должны быть зарегистрированы в своих фичах для того, чтобы запускалось их автоудаление в конце цикла фичи:
+* **Request** is a component that can be created from any feature to request some action inside the feature to which it belongs. The lifetime of such a component can be less than 1 cycle of the pipeline. Once it reaches the system that executes it in a feature, it will be processed and then automatically deleted. The deletion occurs after all systems in the feature have been processed, along with all other requests for performance reasons. \
+All requests must be registered in their features in order to run their auto-delete at the end of the feature cycle:
 
 ```csharp
 internal class SpawnFeature : UpdateFeature
@@ -104,8 +114,8 @@ internal class SpawnFeature : UpdateFeature
 }
 ```
 
-* **Эвент** - компонент, который создается исключительно внутри фичи, к которой принадлежит, для оповещения игрового мира и других систем/фич о каких-либо событиях внутри. Время жизни такого компонента обычно составляет ровно 1 цикл пайплайна*. Как только он снова дойдет до фичи, создавшей его, то будет автоматически удален перед запуском какой-либо системы этой фичи. Удаление происходит одновременно со всеми остальными событиями данной фичи из-за соображений производительности. \
-Аналогично реквестам, все события должны быть зарегистрированы в своих фичах:
+* **Event** is a component that is created exclusively inside the feature it belongs to, to notify the game world and other systems/features of any events inside. The lifetime of such a component is usually exactly 1 pipeline cycle*. Once it reaches the feature that created it, it will be automatically deleted before any system of that feature is started. The deletion occurs at the same time as all other events in the feature for performance reasons. \
+Similar to requests, all events must be registered in their features:
 
 ```csharp
 internal class PlayerInputFeature : UpdateFeature
@@ -118,56 +128,56 @@ internal class PlayerInputFeature : UpdateFeature
 }
 ```
 
-Общий пайплайн фичи выглядит следующим образом:
+The overall pipeline of the feature looks as follows:
 
 ![Feature Pipeline](Imgs/feature_pipeline.png)
 
-\* - Для реквестов и эвентов может быть задан иной цикл жизни, когда уничтожение запускается в конце текущего фрейма. Для этого у методов `RegisterRequest<TRequest>()` и `RegisterEvent<TEvent>()` есть необязательный параметр `lifetime`, по умолчанию равный `EventLifetime.NotifyAllSystems`. Чтобы уничтожение заданных реквестов или событий запускалось в конце кадра необходимо указать `lifetime = EventLifetime.NotifyAllSystemsBelow`.
+\* - A different lifetime cycle can be set for Requests and Events, where deletion is started at the end of the current frame. For this purpose `RegisterRequest<TRequest>()` and `RegisterEvent<TEvent>()` methods have an optional `lifetime` parameter, which by default is equal to `EventLifetime.NotifyAllSystems`. To start the deletion of the set requests or events at the end of the frame you should enter `lifetime = EventLifetime.NotifyAllSystemsBelow`.
 
-*NB:* Для `CombinedFeature`, в силу особенностей реализации, методы `RegisterRequest()` и `RegisterEvent()` объединены в один - `RegisterOneShot<TOneShot>()`. Удаляться такие компоненты соответственно всегда будут только в конце текущего кадра.
+*NB:* For `CombinedFeature`, due to implementation specifics, methods `RegisterRequest()` and `RegisterEvent()` are combined into one - `RegisterOneShot<TOneShot>()`. Such components will always be deleted only at the end of the current frame.
 
-В плагин также входит доп. API для создания реквестов и событий на отдельных сущностях, которое можно найти ниже. Данные сущности не создаются каждый раз с нуля, а берутся из [пула](#entity-pool), поэтому их использование гораздо дешевле, чем создание через `World.CreateEntity()`. Однако, все еще не рекомендуется хранить ссылки на такие сущности и добавлять на них дополнительные компоненты.
+The plugin also includes an additional API for creating requests and events on individual entities, which can be found below. These entities are not created from scratch each time, but are taken from a [pool](#entity-pool), so using them is much cheaper than creating via `World.CreateEntity()`. However, it is still not recommended to keep references to such entities and add additional components on them.
 
-#### API плагина
+#### Plugin API
 
-| Методы | Описание |
-| ------ | ------ |
-| `World.AddFeature(int order, BaseFeature feature, bool enabled = true)` | Добавление фичи в мир |
-| `World.RemoveFeature(BaseFeature feature)` | Удаление фичи из мира |
-| `TFeature World.GetFeature<TFeature>()` | Получение фичи указанного типа из мира, если она была добавлена в него. Иначе вернется `null` |
+| Methods | Description |
+| ------- | ----------- |
+| `World.AddFeature(int order, BaseFeature feature, bool enabled = true)` | Adding a feature to the world |
+| `World.RemoveFeature(BaseFeature feature)` | Removing a feature from the world |
+| `TFeature World.GetFeature<TFeature>()` | Retrieve a feature of the specified type from the world if it was added to it. Otherwise `null` is returned |
 
 * `TypedFeature<TFeatureSystem>` (`UpdateFeature`, `FixedUpdateFeature`, `LateUpdateFeature`): 
 
-| Методы | Описание |
-| ------ | ------ |
-| `AddInitializer()` | Добавление в фичу системы-инициализатора (`IInitialier`) |
-| `AddSystem()` | Добавление в фичу системы, совпадающей с типом Update Queue фичи |
-| `RegisterRequest<TRequest>(EventLifetime lifetime = EventLifetime.NotifyAllSystems)` | Регистрация реквеста указанного типа в фиче. По умолчанию указанный реквест будет удален после отработки всех систем фичи. Цикл жизни можно заменить на удаление в конце текущего кадра (`EventLifetime.NotifyAllSystemsBelow`) |
-| `RegisterEvent<TEvent>(EventLifetime lifetime = EventLifetime.NotifyAllSystems)` | Регистрация события указанного типа в фиче. По умолчанию указанное событие будет удалено перед запуском систем фичи. Цикл жизни можно заменить на удаление в конце текущего кадра (`EventLifetime.NotifyAllSystemsBelow`) |
-| `Enable()` | Включение фичи (например, для отладки) |
-| `Disable()` | Выключение фичи (например, для отладки) |
+| Methods | Description |
+| ------- | ----------- |
+| `AddInitializer()` | Adding an initializer system to the feature (`IInitializer`) |
+| `AddSystem()` | Adding a system to the feature that matches the Update Queue feature type |
+| `RegisterRequest<TRequest>(EventLifetime lifetime = EventLifetime.NotifyAllSystems)` | Registration of a request of the specified type in a feature. By default, the specified request will be deleted after all feature systems are completed. The lifetime cycle can be modified so that the request is deleted at the end of the current frame (`EventLifetime.NotifyAllSystemsBelow`) |
+| `RegisterEvent<TEvent>(EventLifetime lifetime = EventLifetime.NotifyAllSystems)` | Registration of an event of the specified type in a feature. By default, the specified event will be deleted before running the feature systems. The lifetime cycle can be modified so that the event is deleted at the end of the current frame (`EventLifetime.NotifyAllSystemsBelow`) |
+| `Enable()` | Enabling a feature (e.g. for debugging) |
+| `Disable()`| Disabling a feature (e.g. for debugging) |
 
 * `CombinedFeature`:
 
-| Методы | Описание |
-| ------ | ------ |
-| `AddInitializer()` | Добавление в фичу системы-инициализатора (`IInitialier`) |
-| `AddSystem<TFeatureSystem>()` | Добавление в фичу системы указанного типа (`ISystem` и его наследники) |
-| `RegisterOneShot<TOneShot>()` | Регистрация OneShot компонента указанного типа в фиче (например, реквеста или события). Указанный компонент будет удален в конце текущего кадра |
-| `Enable()` | Включение фичи (например, для отладки) |
-| `Disable()` | Выключение фичи (например, для отладки) |
+| Methods | Description |
+| ------- | ----------- |
+| `AddInitializer()` | Adding an initializer system to the feature (`IInitializer`) |
+| `AddSystem<TFeatureSystem>()` | Adding a system of the specified type to the feature (`ISystem` and its inheritors) |
+| `RegisterOneShot<TOneShot>()` | Registration of a OneShot component of the specified type in a feature (for example, a request or an event). The specified component will be deleted at the end of the current frame |
+| `Enable()` | Enabling a feature (e.g. for debugging) |
+| `Disable()` | Disabling a feature (e.g. for debugging) |
 
-* Создание отдельных сущностей-эвентов из пула:
+* Creating event entities from the pool:
 
-| Методы | Описание |
-| ------ | ------ |
-| `ref T World.CreateEventEntity<T>()` | Создание сущности из пула с добавлением  компонента указанного типа |
-| `ref T Stash<T>.AddEvent<T>()` | Добавление сущности из пула в стеш компонента указанного типа |
-| `Stash<T>.SetEvent<T>(in T eventComponent)` | Установка сущности из пула компонента указанного типа с добавлением в его стеш |
+| Methods | Description |
+| ------- | ----------- |
+| `ref T World.CreateEventEntity<T>()` | Creating an entity from a pool and adding a component of the specified type |
+| `ref T Stash<T>.AddEvent<T>()` | Adding an entity from the pool to the stash of a component of the specified type |
+| `Stash<T>.SetEvent<T>(in T eventComponent)` | Setting the specified component type to an entity from the pool and adding it to the stash of this component |
 
-_NB:_ Так как Feature плагин не может использоваться отдельно от других плагинов, входящих в MorpehAddons, то для его иницилизации необходимо внутри статического `[RuntimeInitializeOnLoadMethod]` метода вызвать следующее: `MorpehAddons.Initialize()`. Данный метод инициализации добавит в Morpeh все три плагина пакета: OneShot, Entity Pool и Feature. \
-Второй вариант - использовать встроенный в плагин `BaseFeaturesInstaller`, в котором уже проведены все необходимые инициализации.
+_NB:_ Since the Feature plugin cannot be used separately from other plugins included in MorpehAddons, `MorpehAddons.Initialize()` must be called inside the static `[RuntimeInitializeOnLoadMethod]`. This initialization method will add all three plugins of the package to Morpeh: OneShot, Entity Pool and Feature. \
+The second option is to use the `BaseFeaturesInstaller` integrated into the plugin, in which all the necessary initializations have already been done.
 
-## Примеры
+## Examples
 
-* Небольшой семпл может быть найден [здесь](Assets/Sample)
+* You can find a small sample [here](Assets/Sample)
