@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using Scellecs.Morpeh.Addons.Feature;
 using VContainer;
 
-namespace Scellecs.Morpeh.Addons.Unity
+namespace Scellecs.Morpeh.Addons.Unity.VContainer
 {
     public static class ObjectResolverExtensions
     {

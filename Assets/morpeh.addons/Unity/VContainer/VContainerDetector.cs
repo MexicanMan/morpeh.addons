@@ -3,14 +3,17 @@ using System.Threading.Tasks;
 using UnityEditor;
 using UnityEditor.PackageManager;
 
-namespace Scellecs.Morpeh.Addons.Unity.Editor
+namespace Scellecs.Morpeh.Addons.Unity.VContainer
 {
     [InitializeOnLoad]
     internal static class VContainerDetector
     {
         private const string DefinitionName = "MORPEH_ADDONS_VCONTAINER";
 
-        static VContainerDetector() { ResolveDependencies(); }
+        static VContainerDetector() 
+        {
+            ResolveDependencies(); 
+        }
 
         private static async void ResolveDependencies()
         {
