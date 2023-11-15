@@ -178,6 +178,20 @@ internal class PlayerInputFeature : UpdateFeature
 _NB:_ Так как Feature плагин не может использоваться отдельно от других плагинов, входящих в MorpehAddons, то для его иницилизации необходимо внутри статического `[RuntimeInitializeOnLoadMethod]` метода вызвать следующее: `MorpehAddons.Initialize()`. Данный метод инициализации добавит в Morpeh все три плагина пакета: OneShot, Entity Pool и Feature. \
 Второй вариант - использовать встроенный в плагин `BaseFeaturesInstaller`, в котором уже проведены все необходимые инициализации.
 
+#### VContainer
+Если в проекте используется VContainer, то для создания фич можно использовать расширение `IObjectResolver.CreateFeature<TFeature>()` для инъекции зависимостей.
+```csharp
+protected override UpdateFeature[] InitializeUpdateFeatures()
+{
+    return new UpdateFeature[]
+    {
+        _container.CreateFeature<PlayerInputFeature>(),
+        _container.CreateFeature<SpawnFeature>(),
+        _container.CreateFeature<LoggerFeature>(),
+    };
+}
+```
+
 ## Примеры
 
 * Небольшой семпл может быть найден [здесь](Assets/Sample)
