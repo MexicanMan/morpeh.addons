@@ -16,6 +16,7 @@
     * [OneShot](#oneshot)
     * [Entity Pool](#entity-pool)
     * [Feature](#feature)
+* [Интеграция с VContainer](#интеграция-с-vcontainer)
 * [Примеры](#примеры)
 
 ## Как поставить
@@ -177,6 +178,21 @@ internal class PlayerInputFeature : UpdateFeature
 
 _NB:_ Так как Feature плагин не может использоваться отдельно от других плагинов, входящих в MorpehAddons, то для его иницилизации необходимо внутри статического `[RuntimeInitializeOnLoadMethod]` метода вызвать следующее: `MorpehAddons.Initialize()`. Данный метод инициализации добавит в Morpeh все три плагина пакета: OneShot, Entity Pool и Feature. \
 Второй вариант - использовать встроенный в плагин `BaseFeaturesInstaller`, в котором уже проведены все необходимые инициализации.
+
+## Интеграция с VContainer
+Если в проекте используется [VContainer](https://github.com/hadashiA/VContainer), то для создания фич можно использовать расширение `IObjectResolver.CreateFeature<TFeature>()` для инъекции зависимостей.
+
+```csharp
+protected override UpdateFeature[] InitializeUpdateFeatures()
+{
+    return new UpdateFeature[]
+    {
+        _container.CreateFeature<PlayerInputFeature>(),
+        _container.CreateFeature<SpawnFeature>(),
+        _container.CreateFeature<LoggerFeature>(),
+    };
+}
+```
 
 ## Примеры
 

@@ -1,10 +1,10 @@
 {
   "name": "store.gameslab.morpeh.addons",
-  "author": "Nikita Nazarenko",
+  "author": "Gameslab",
   "displayName": "Morpeh Addons",
   "description": "A set of additional tools (addons) for Morpeh ECS, adding sugar for a more \"feature-friendly\" framework syntax.",
   "unity": "2020.3",
-  "version": "2023.1.1",
+  "version": "2023.1.2",
   "keywords": [
     "morpeh",
     "ecs",

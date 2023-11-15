@@ -16,6 +16,7 @@ A set of additional tools for [Morpeh ECS](https://github.com/scellecs/morpeh/),
     * [OneShot](#oneshot)
     * [Entity Pool](#entity-pool)
     * [Feature](#feature)
+* [VContainer integration](#vcontainer-integration)
 * [Examples](#examples)
 
 ## How to install
@@ -177,6 +178,21 @@ The plugin also includes an additional API for creating requests and events on i
 
 _NB:_ Since the Feature plugin cannot be used separately from other plugins included in MorpehAddons, `MorpehAddons.Initialize()` must be called inside the static `[RuntimeInitializeOnLoadMethod]`. This initialization method will add all three plugins of the package to Morpeh: OneShot, Entity Pool and Feature. \
 The second option is to use the `BaseFeaturesInstaller` integrated into the plugin, in which all the necessary initializations have already been done.
+
+## VContainer integration
+If the project uses [VContainer](https://github.com/hadashiA/VContainer), you can use the `IObjectResolver.CreateFeature<TFeature>()` extension for dependency injection to create features.
+
+```csharp
+protected override UpdateFeature[] InitializeUpdateFeatures()
+{
+    return new UpdateFeature[]
+    {
+        _container.CreateFeature<PlayerInputFeature>(),
+        _container.CreateFeature<SpawnFeature>(),
+        _container.CreateFeature<LoggerFeature>(),
+    };
+}
+```
 
 ## Examples
 
