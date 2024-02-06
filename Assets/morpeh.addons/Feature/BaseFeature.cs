@@ -1,5 +1,6 @@
 using JetBrains.Annotations;
 using System;
+using Scellecs.Morpeh.Collections;
 
 namespace Scellecs.Morpeh.Addons.Feature
 {
@@ -25,5 +26,12 @@ namespace Scellecs.Morpeh.Addons.Feature
         internal abstract void Register(World world, int order, bool enabled);
 
         public abstract void Dispose();
+
+        protected static void MoveSystemsList(FastList<ISystem> fromSystems, FastList<ISystem> toSystems)
+        {
+            foreach (var system in fromSystems)
+                toSystems.Add(system);
+            fromSystems.Clear();
+        }
     }
 }
