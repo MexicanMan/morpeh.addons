@@ -8,10 +8,9 @@ namespace Scellecs.Morpeh.Addons.Feature
         {
             if (!enabled)
             {
-                foreach (var fixedSystem in featureSystemsGroup.disabledFixedSystems)
-                    featureSystemsGroup.EnableSystem(fixedSystem);
+                MoveSystemsList(featureSystemsGroup.disabledFixedSystems, featureSystemsGroup.fixedSystems);
 
-                enabled = false;
+                enabled = true;
             }
         }
 
@@ -19,10 +18,9 @@ namespace Scellecs.Morpeh.Addons.Feature
         {
             if (enabled)
             {
-                foreach (var fixedSystem in featureSystemsGroup.fixedSystems)
-                    featureSystemsGroup.DisableSystem(fixedSystem);
+                MoveSystemsList(featureSystemsGroup.fixedSystems, featureSystemsGroup.disabledFixedSystems);
 
-                enabled = true;
+                enabled = false;
             }
         }
 

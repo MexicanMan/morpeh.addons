@@ -23,10 +23,9 @@ namespace Scellecs.Morpeh.Addons.Feature
         {
             if (!enabled)
             {
-                foreach (var system in featureSystemsGroup.disabledSystems)
-                    featureSystemsGroup.EnableSystem(system);
+                MoveSystemsList(featureSystemsGroup.disabledSystems, featureSystemsGroup.systems);
 
-                enabled = false;
+                enabled = true;
             }
         }
 
@@ -34,10 +33,9 @@ namespace Scellecs.Morpeh.Addons.Feature
         {
             if (enabled)
             {
-                foreach (var system in featureSystemsGroup.systems)
-                    featureSystemsGroup.DisableSystem(system);
+                MoveSystemsList(featureSystemsGroup.systems, featureSystemsGroup.disabledSystems);
 
-                enabled = true;
+                enabled = false;
             }
         }
 

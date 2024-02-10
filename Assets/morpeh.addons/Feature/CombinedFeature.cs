@@ -22,14 +22,10 @@ namespace Scellecs.Morpeh.Addons.Feature
         {
             if (!enabled)
             {
-                foreach (var system in featureSystemsGroup.disabledSystems)
-                    featureSystemsGroup.EnableSystem(system);
-                foreach (var fixedSystem in featureSystemsGroup.disabledFixedSystems)
-                    featureSystemsGroup.EnableSystem(fixedSystem);
-                foreach (var lateSystem in featureSystemsGroup.disabledLateSystems)
-                    featureSystemsGroup.EnableSystem(lateSystem);
-                foreach (var cleanupSystem in featureSystemsGroup.disabledCleanupSystems)
-                    featureSystemsGroup.EnableSystem(cleanupSystem);
+                MoveSystemsList(featureSystemsGroup.disabledSystems, featureSystemsGroup.systems);
+                MoveSystemsList(featureSystemsGroup.disabledFixedSystems, featureSystemsGroup.fixedSystems);
+                MoveSystemsList(featureSystemsGroup.disabledLateSystems, featureSystemsGroup.lateSystems);
+                MoveSystemsList(featureSystemsGroup.disabledCleanupSystems, featureSystemsGroup.cleanupSystems);
 
                 enabled = true;
             }
@@ -39,14 +35,10 @@ namespace Scellecs.Morpeh.Addons.Feature
         {
             if (enabled)
             {
-                foreach (var system in featureSystemsGroup.systems)
-                    featureSystemsGroup.DisableSystem(system);
-                foreach (var fixedSystem in featureSystemsGroup.fixedSystems)
-                    featureSystemsGroup.DisableSystem(fixedSystem);
-                foreach (var lateSystem in featureSystemsGroup.lateSystems)
-                    featureSystemsGroup.DisableSystem(lateSystem);
-                foreach (var cleanupSystem in featureSystemsGroup.cleanupSystems)
-                    featureSystemsGroup.DisableSystem(cleanupSystem);
+                MoveSystemsList(featureSystemsGroup.systems, featureSystemsGroup.disabledSystems);
+                MoveSystemsList(featureSystemsGroup.fixedSystems, featureSystemsGroup.disabledFixedSystems);
+                MoveSystemsList(featureSystemsGroup.lateSystems, featureSystemsGroup.disabledLateSystems);
+                MoveSystemsList(featureSystemsGroup.cleanupSystems, featureSystemsGroup.disabledCleanupSystems);
 
                 enabled = false;
             }
