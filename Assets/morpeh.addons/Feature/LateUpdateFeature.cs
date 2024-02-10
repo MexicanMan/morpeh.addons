@@ -8,10 +8,9 @@ namespace Scellecs.Morpeh.Addons.Feature
         {
             if (!enabled)
             {
-                foreach (var lateSystem in featureSystemsGroup.disabledLateSystems)
-                    featureSystemsGroup.EnableSystem(lateSystem);
+                MoveSystemsList(featureSystemsGroup.disabledLateSystems, featureSystemsGroup.lateSystems);
 
-                enabled = false;
+                enabled = true;
             }
         }
 
@@ -19,10 +18,9 @@ namespace Scellecs.Morpeh.Addons.Feature
         {
             if (enabled)
             {
-                foreach (var lateSystem in featureSystemsGroup.lateSystems)
-                    featureSystemsGroup.DisableSystem(lateSystem);
+                MoveSystemsList(featureSystemsGroup.lateSystems, featureSystemsGroup.disabledLateSystems);
 
-                enabled = true;
+                enabled = false;
             }
         }
 
