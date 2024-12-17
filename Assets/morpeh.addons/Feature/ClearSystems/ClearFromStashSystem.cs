@@ -5,9 +5,9 @@ namespace Scellecs.Morpeh.Addons.Feature.ClearSystems
 {
     internal sealed class ClearFromStashSystem : UpdateSystem
     {
-        private readonly FastList<Stash> _stashes;
+        private readonly FastList<IStash> _stashes;
 
-        public ClearFromStashSystem(FastList<Stash> stashes)
+        public ClearFromStashSystem(FastList<IStash> stashes)
         {
             _stashes = stashes;
         }

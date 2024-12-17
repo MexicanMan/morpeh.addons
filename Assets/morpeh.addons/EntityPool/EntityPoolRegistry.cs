@@ -70,7 +70,7 @@ namespace Scellecs.Morpeh.Addons.EntityPool
         public void PoolEntity(Entity entity)
         {
             if (_pooledTagStash.Has(entity))
-                _entitiesInUse.RemoveSwap(entity, out _);
+                _entitiesInUse.RemoveSwapBack(entity);
             else
                 _pooledTagStash.Add(entity);
 
@@ -82,15 +82,16 @@ namespace Scellecs.Morpeh.Addons.EntityPool
             int i = 0;
             foreach (var entityInUse in _entitiesInUse)
             {
-                if (entityInUse.currentArchetypeLength == 1)
+                if (entityInUse == default) continue;
+                if (_world.entities[entityInUse.Id].currentArchetype.length == 1)
                 {
                 #if MORPEH_DEBUG
                     if (!_pooledTagStash.Has(entityInUse))
                         MLogger.LogError($"You should never delete PooledEntityTag from pool entity! " +
-                            $"Entity id: {entityInUse.ID.id}.");
+                            $"Entity id: {entityInUse.Id}.");
                 #endif
-
-                    _entitiesInUse.RemoveAtSwap(i, out FastList<Entity>.ResultSwap _);
+            
+                    _entitiesInUse.RemoveAtSwapBack(i);
                     _pooledEntities.Push(entityInUse);
                 }
                 else

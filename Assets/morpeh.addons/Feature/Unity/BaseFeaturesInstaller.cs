@@ -20,7 +20,7 @@ namespace Scellecs.Morpeh.Addons.Feature.Unity
         {
             if (World.Default == null)
             {
-                var world = World.Create("Default World");
+                var world = World.Create();
                 world.UpdateByUnity = true;
             }
 

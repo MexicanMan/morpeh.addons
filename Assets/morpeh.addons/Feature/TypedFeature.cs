@@ -8,8 +8,8 @@ namespace Scellecs.Morpeh.Addons.Feature
 {
     public abstract class TypedFeature<TFeatureSystem> : BaseFeature where TFeatureSystem : class, ISystem
     {
-        private protected FastList<Stash> requestsStashes;
-        private protected FastList<Stash> eventsStashes;
+        private protected FastList<IStash> requestsStashes;
+        private protected FastList<IStash> eventsStashes;
 
         [PublicAPI]
         public virtual void AddSystem(TFeatureSystem system)
@@ -43,8 +43,8 @@ namespace Scellecs.Morpeh.Addons.Feature
             featureSystemsGroup = world.CreateSystemsGroup();
             this.enabled = enabled;
 
-            requestsStashes = new FastList<Stash>();
-            eventsStashes = new FastList<Stash>();
+            requestsStashes = new FastList<IStash>();
+            eventsStashes = new FastList<IStash>();
 
             PreInitialize();
             Initialize();

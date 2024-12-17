@@ -8,9 +8,9 @@ namespace Scellecs.Morpeh.Addons
     {
         public static void Initialize()
         {
-            WorldExtensions.AddWorldPlugin(new FeaturePlugin());
-            WorldExtensions.AddWorldPlugin(new OneShotPlugin());
-            WorldExtensions.AddWorldPlugin(new EntityPoolPlugin());
+            WorldPluginsExtensions.AddWorldPlugin(new FeaturePlugin());
+            WorldPluginsExtensions.AddWorldPlugin(new OneShotPlugin());
+            WorldPluginsExtensions.AddWorldPlugin(new EntityPoolPlugin());
         }
     }
 }
