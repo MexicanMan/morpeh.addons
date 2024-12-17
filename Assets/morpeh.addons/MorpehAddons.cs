@@ -10,7 +10,7 @@ namespace Scellecs.Morpeh.Addons
         {
             WorldPluginsExtensions.AddWorldPlugin(new FeaturePlugin());
             WorldPluginsExtensions.AddWorldPlugin(new OneShotPlugin());
-            WorldPluginsExtensions.AddWorldPlugin(new EntityPoolPlugin());
+            //WorldPluginsExtensions.AddWorldPlugin(new EntityPoolPlugin());
         }
     }
 }
