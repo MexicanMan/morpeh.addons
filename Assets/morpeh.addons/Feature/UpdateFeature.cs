@@ -1,7 +1,11 @@
 ﻿using Scellecs.Morpeh.Addons.Feature.ClearSystems;
+using Unity.IL2CPP.CompilerServices;
 
 namespace Scellecs.Morpeh.Addons.Feature
 {
+    [Il2CppSetOption(Option.NullChecks, false)]
+    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public abstract class UpdateFeature : TypedFeature<ISystem>
     {
         public override void AddSystem(ISystem system)

@@ -1,8 +1,12 @@
 ﻿using JetBrains.Annotations;
 using Scellecs.Morpeh.Addons.OneShot;
+using Unity.IL2CPP.CompilerServices;
 
 namespace Scellecs.Morpeh.Addons.Feature
 {
+    [Il2CppSetOption(Option.NullChecks, false)]
+    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public abstract class CombinedFeature : BaseFeature
     {
         [PublicAPI]

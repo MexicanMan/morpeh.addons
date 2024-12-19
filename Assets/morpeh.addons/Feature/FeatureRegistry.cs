@@ -1,9 +1,13 @@
 ﻿using Scellecs.Morpeh.Collections;
 using System;
 using System.Runtime.CompilerServices;
+using Unity.IL2CPP.CompilerServices;
 
 namespace Scellecs.Morpeh.Addons.Feature
 {
+    [Il2CppSetOption(Option.NullChecks, false)]
+    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     internal sealed class FeatureRegistry : IDisposable
     {
         private static readonly IntHashMap<FeatureRegistry> WorldFeatureRegistry = new IntHashMap<FeatureRegistry>();

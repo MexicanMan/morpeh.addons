@@ -1,12 +1,17 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using JetBrains.Annotations;
 using System.Runtime.CompilerServices;
-using Scellecs.Morpeh.Addons.EntityPool;
+using Unity.IL2CPP.CompilerServices;
 
 namespace Scellecs.Morpeh.Addons.Feature.Events
 {
+    [Il2CppSetOption(Option.NullChecks, false)]
+    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public static class EventsExtensions
     {
         [PublicAPI]
+        [Obsolete("[MORPEH] Use AddEvent() instead.")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ref T CreateEventEntity<T>(this World world) where T : struct, IComponent
         {
