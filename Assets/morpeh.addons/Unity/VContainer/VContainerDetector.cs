@@ -1,10 +1,14 @@
 #if UNITY_EDITOR && UNITY_2019_1_OR_NEWER
 using System.Threading.Tasks;
+using Unity.IL2CPP.CompilerServices;
 using UnityEditor;
 using UnityEditor.PackageManager;
 
 namespace Scellecs.Morpeh.Addons.Unity.VContainer
 {
+    [Il2CppSetOption(Option.NullChecks, false)]
+    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     [InitializeOnLoad]
     internal static class VContainerDetector
     {

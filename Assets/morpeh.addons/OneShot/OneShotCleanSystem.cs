@@ -1,7 +1,11 @@
 ﻿using Scellecs.Morpeh.Addons.Systems;
+using Unity.IL2CPP.CompilerServices;
 
 namespace Scellecs.Morpeh.Addons.OneShot
 {
+    [Il2CppSetOption(Option.NullChecks, false)]
+    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     internal class OneShotCleanSystem : CleanupSystem
     {
         private OneShotRegistry _registry;

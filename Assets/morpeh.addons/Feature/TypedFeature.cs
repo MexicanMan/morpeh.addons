@@ -2,14 +2,17 @@
 using Scellecs.Morpeh.Addons.Feature.Events;
 using Scellecs.Morpeh.Addons.OneShot;
 using Scellecs.Morpeh.Collections;
-using System;
+using Unity.IL2CPP.CompilerServices;
 
 namespace Scellecs.Morpeh.Addons.Feature
 {
+    [Il2CppSetOption(Option.NullChecks, false)]
+    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public abstract class TypedFeature<TFeatureSystem> : BaseFeature where TFeatureSystem : class, ISystem
     {
-        private protected FastList<Stash> requestsStashes;
-        private protected FastList<Stash> eventsStashes;
+        private protected FastList<IStash> requestsStashes;
+        private protected FastList<IStash> eventsStashes;
 
         [PublicAPI]
         public virtual void AddSystem(TFeatureSystem system)
@@ -43,8 +46,8 @@ namespace Scellecs.Morpeh.Addons.Feature
             featureSystemsGroup = world.CreateSystemsGroup();
             this.enabled = enabled;
 
-            requestsStashes = new FastList<Stash>();
-            eventsStashes = new FastList<Stash>();
+            requestsStashes = new FastList<IStash>();
+            eventsStashes = new FastList<IStash>();
 
             PreInitialize();
             Initialize();
