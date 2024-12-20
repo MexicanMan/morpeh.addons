@@ -4,7 +4,7 @@
   "displayName": "Morpeh Addons",
   "description": "A set of additional tools (addons) for Morpeh ECS, adding sugar for a more \"feature-friendly\" framework syntax.",
   "unity": "2020.3",
-  "version": "2023.1.2",
+  "version": "2024.1.1",
   "keywords": [
     "morpeh",
     "ecs",
@@ -15,6 +15,6 @@
   "dependencies": {},
   "repository": {
     "type": "git",
-    "url": "https://git.gameslab.store/nikita.nazarenko/morpehaddons"
+    "url": "https://github.com/MexicanMan/morpeh.addons"
   }
 }

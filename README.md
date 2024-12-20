@@ -148,6 +148,13 @@ The overall pipeline of the feature looks as follows:
 | `Enable()` | Enabling a feature (e.g. for debugging) |
 | `Disable()` | Disabling a feature (e.g. for debugging) |
 
+* Creating event entities (syntax sugar, a regular entity is created under the hood and the specified component type is assigned to it):
+
+| Methods | Description |
+| ------- | ----------- |
+| `ref T Stash<T>.AddEvent<T>()` | Creating an entity and adding it to the stash of a component of the specified type |
+| `Stash<T>.SetEvent<T>(in T eventComponent)` | Setting the specified component type with the creation of an entity and adding it to the stash of this component |
+
 _NB:_ Since the Feature plugin cannot be used separately from other plugins included in MorpehAddons, `MorpehAddons.Initialize()` must be called inside the static `[RuntimeInitializeOnLoadMethod]`. This initialization method will add all two plugins of the package to Morpeh: OneShot and Feature. \
 The second option is to use the `BaseFeaturesInstaller` integrated into the plugin, in which all the necessary initializations have already been done.
 
