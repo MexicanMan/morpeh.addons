@@ -1,7 +1,7 @@
 # MorpehAddons
 
 [![Unity](https://img.shields.io/badge/Unity-2020.3%2B-black)](https://unity3d.com/pt/get-unity/download/archive) 
-[![Morpeh](https://img.shields.io/badge/Morpeh-2023.1-3750c1)](https://github.com/scellecs/morpeh/) 
+[![Morpeh](https://img.shields.io/badge/Morpeh-2024.1-3750c1)](https://github.com/scellecs/morpeh/) 
 [![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE.md)
 
 A set of additional tools for [Morpeh ECS](https://github.com/scellecs/morpeh/), adding sugar to implement a more "_feature-friendly_" framework syntax.
@@ -14,7 +14,6 @@ A set of additional tools for [Morpeh ECS](https://github.com/scellecs/morpeh/),
 * [Package Description](#package-description)
     * [Systems](#systems)
     * [OneShot](#oneshot)
-    * [Entity Pool](#entity-pool)
     * [Feature](#feature)
 * [VContainer integration](#vcontainer-integration)
 * [Examples](#examples)
@@ -22,7 +21,7 @@ A set of additional tools for [Morpeh ECS](https://github.com/scellecs/morpeh/),
 ## How to install
 
 Unity minimum version - *Unity 2020.3.\* LTS* \
-Also make sure you already have *Morpeh 2023.1* installed.
+Also make sure you already have *Morpeh 2024.1* installed.
 
 Open *Package Manager*, select *"Add package from git url..."* and then insert the following:
 * `https://github.com/MexicanMan/morpeh.addons.git?path=/Assets/morpeh.addons`
@@ -37,7 +36,7 @@ They are used to avoid having to write for each system a potentially empty `Disp
 
 ### OneShot
 
-An analogue of OneFrame components from [this plugin](https://github.com/SH42913/morpeh.helpers) with a new name, slightly rewritten using the new Morpeh 2023.1 API.
+An analogue of OneFrame components from [this plugin](https://github.com/SH42913/morpeh.helpers) with a new name, slightly rewritten using the new Morpeh 2024.1 API.
 
 After registering a "OneShot component" and adding it to an entity, this component will be automatically cleaned itself at the end of the frame in a special Cleanup system (during Late Update).
 
@@ -52,28 +51,11 @@ This plugin is <ins>essential</ins> for [Feature plugin](#feature) work.
 _NB:_ To use the OneShot plugin separately from the rest of the plugins included in MorpehAddons, just call the following inside the static `[RuntimeInitializeOnLoadMethod]` method: `WorldExtensions.AddWorldPlugin(new OneShotPlugin());`.
 
 
-### Entity Pool
-
-The plugin provides the ability to use an entity pool that, after deleting all its components (except for the reserved `PooledEntityTag` component tag), is returned to the free entity pool rather than simply deleted. \
-It is important to understand that storing any references to pooled entities can be <ins>insecure</ins>, and the plugin is <ins>recommended</ins> to be used exclusively for frequently rotated entities with an unchanging number of components after creation. For example, for event or request entities, which usually don't live more than a frame and contain only one component.
-
-This plugin is <ins>essential</ins> for [Feature plugin](#feature) work.
-
-#### Plugin API
-
-| Methods | Description |
-| ------- | ----------- |
-| `Entity World.GetPooledEntity()` | Retrieving an entity from a pool |
-| `World.PoolEntity(Entity entity)` | Returning the entity back to the pool. It can also be used to add a new entity to the pool: The `PooledEntityTag` will be added to the new entity by itself. |
-
-_NB:_ To use the Entity Pool plugin separately from the rest of the plugins included in MorpehAddons, just call the following inside the static `[RuntimeInitializeOnLoadMethod]` method: `WorldExtensions.AddWorldPlugin(new EntityPoolPlugin());`.
-
-
 ### Feature
 
 The main plugin of the package, providing that very "*feature-friendly*" syntax for Morpeh. 
 
-This plugin <ins>requires</ins> the [OneShot](#oneshot) and [Entity Pool](#entity-pool) plugins to work.
+This plugin <ins>requires</ins> the [OneShot](#oneshot) plugin to work.
 
 #### Features
 
@@ -137,8 +119,6 @@ The overall pipeline of the feature looks as follows:
 
 *NB:* For `CombinedFeature`, due to implementation specifics, methods `RegisterRequest()` and `RegisterEvent()` are combined into one - `RegisterOneShot<TOneShot>()`. Such components will always be deleted only at the end of the current frame.
 
-The plugin also includes an additional API for creating requests and events on individual entities, which can be found below. These entities are not created from scratch each time, but are taken from a [pool](#entity-pool), so using them is much cheaper than creating via `World.CreateEntity()`. However, it is still not recommended to keep references to such entities and add additional components on them.
-
 #### Plugin API
 
 | Methods | Description |
@@ -168,15 +148,14 @@ The plugin also includes an additional API for creating requests and events on i
 | `Enable()` | Enabling a feature (e.g. for debugging) |
 | `Disable()` | Disabling a feature (e.g. for debugging) |
 
-* Creating event entities from the pool:
+* Creating event entities (syntax sugar, a regular entity is created under the hood and the specified component type is assigned to it):
 
 | Methods | Description |
 | ------- | ----------- |
-| `ref T World.CreateEventEntity<T>()` | Creating an entity from a pool and adding a component of the specified type |
-| `ref T Stash<T>.AddEvent<T>()` | Adding an entity from the pool to the stash of a component of the specified type |
-| `Stash<T>.SetEvent<T>(in T eventComponent)` | Setting the specified component type to an entity from the pool and adding it to the stash of this component |
+| `ref T Stash<T>.AddEvent<T>()` | Creating an entity and adding it to the stash of a component of the specified type |
+| `Stash<T>.SetEvent<T>(in T eventComponent)` | Setting the specified component type with the creation of an entity and adding it to the stash of this component |
 
-_NB:_ Since the Feature plugin cannot be used separately from other plugins included in MorpehAddons, `MorpehAddons.Initialize()` must be called inside the static `[RuntimeInitializeOnLoadMethod]`. This initialization method will add all three plugins of the package to Morpeh: OneShot, Entity Pool and Feature. \
+_NB:_ Since the Feature plugin cannot be used separately from other plugins included in MorpehAddons, `MorpehAddons.Initialize()` must be called inside the static `[RuntimeInitializeOnLoadMethod]`. This initialization method will add all two plugins of the package to Morpeh: OneShot and Feature. \
 The second option is to use the `BaseFeaturesInstaller` integrated into the plugin, in which all the necessary initializations have already been done.
 
 ## VContainer integration

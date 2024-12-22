@@ -2,10 +2,14 @@
 
 using System.Runtime.CompilerServices;
 using Scellecs.Morpeh.Addons.Feature;
+using Unity.IL2CPP.CompilerServices;
 using VContainer;
 
 namespace Scellecs.Morpeh.Addons.Unity.VContainer
 {
+    [Il2CppSetOption(Option.NullChecks, false)]
+    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public static class ObjectResolverExtensions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
